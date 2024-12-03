@@ -38,11 +38,8 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.12.6'
 	implementation 'com.auth0:java-jwt:4.4.0'
 
-	// Oracle DB
-	runtimeOnly 'com.oracle.database.jdbc:ojdbc11:23.6.0.24.10'
-	implementation 'com.oracle.database.security:oraclepki:23.6.0.24.10'
-	implementation 'com.oracle.database.security:osdt_cert:21.16.0.0'
-	implementation 'com.oracle.database.security:osdt_core:21.16.0.0'
+	// Maria DB
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 
 	// Lombok
 	compileOnly 'org.projectlombok:lombok'

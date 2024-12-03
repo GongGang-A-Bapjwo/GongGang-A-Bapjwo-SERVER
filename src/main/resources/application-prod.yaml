@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: ENC(a1FOUvfvUn618xVSNf2Ua51Atjf/2SHsL0GE0gRpu0FY3z6oAUBIS+AE9qRZPhGPigfNbclpj7990RVRw4dvhRcff4W4RLOvyQ3XIIRqskx7hfG7ZAoXRQ==)
-    username: ENC(PsHF+ccFKU1oUfIIMW5CQw==)
-    password: ENC(iyzkesbRcNNDIZQ3CAyEaSbHmODgarHw)
-    driver-class-name: oracle.jdbc.OracleDriver
+    url: ENC(bdNT9SvaPhMZ4GV6P9enwTcxpw1mViLP)
+    username: ENC(oVOV2dnDxplk/BvLkKt215RaEQjdNld5)
+    password: ENC(VhZJL7T7Qjll6RfIehuqoKtTVFBHLy8O)
+    driver-class-name: org.mariadb.jdbc.Driver
   jpa:
     generate-ddl: true
     show-sql: false

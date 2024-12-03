@@ -200,7 +200,4 @@ gradle-app.setting
 # Java heap dump
 *.hprof
 
-### Oracle Cloud Wallet ###
-/src/main/resources/OracleCloud/
-
 # End of https://www.toptal.com/developers/gitignore/api/intellij,macos,java,gradle
