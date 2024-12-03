@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: ENC(bdNT9SvaPhMZ4GV6P9enwTcxpw1mViLP)
+    username: ENC(oVOV2dnDxplk/BvLkKt215RaEQjdNld5)
+    password: ENC(VhZJL7T7Qjll6RfIehuqoKtTVFBHLy8O)
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    generate-ddl: true
+    show-sql: false
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: Asia/Seoul
+
+app:
+  server:
+    url: ENC(LBV2r4vE/yMeNeqQfcPDg4XfeblfJieg)
