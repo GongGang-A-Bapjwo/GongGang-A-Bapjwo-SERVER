@@ -55,19 +55,19 @@ jobs:
           username: ${{secrets.USERNAME}}
           password: ${{secrets.PASSWORD}}
           script: |
-            sudo docker pull ${{secrets.DOCKER_USERNAME}}/gonggangbe:latest
+            docker pull ${{secrets.DOCKER_USERNAME}}/gonggangbe:latest
             
-            EXISTING_CONTAINER_ID=$(sudo docker ps -q -f "publish=${{secrets.SERVICE_PORT}}" -f "status=running")
+            EXISTING_CONTAINER_ID=$(docker ps -q -f "publish=${{secrets.SERVICE_PORT}}" -f "status=running")
             if [ ! -z "$EXISTING_CONTAINER_ID" ]; then
-              sudo docker stop $EXISTING_CONTAINER_ID
-              sudo docker rm $EXISTING_CONTAINER_ID
+              docker stop $EXISTING_CONTAINER_ID
+              docker rm $EXISTING_CONTAINER_ID
             fi
 
-            EXISTING_CONTAINER_ID=$(sudo docker ps -q -f "publish=${{secrets.SERVICE_PORT}}" -f "status=exited")
+            EXISTING_CONTAINER_ID=$(docker ps -q -f "publish=${{secrets.SERVICE_PORT}}" -f "status=exited")
             if [ ! -z "$EXISTING_CONTAINER_ID" ]; then
-              sudo docker rm $EXISTING_CONTAINER_ID
+              docker rm $EXISTING_CONTAINER_ID
             fi
             
-            sudo docker rm $(sudo docker ps --filter 'status=exited' -a -q) 
-            sudo docker run -d --name gonggangbe -p 8080:${{secrets.SERVICE_PORT}} -e JAVA_OPTS=-Djasypt.encryptor.password=${{secrets.JASYPT_ENCRYPTOR_PASSWORD}} ${{secrets.DOCKER_USERNAME}}/gonggangbe:latest
-            sudo docker image prune -a -f
+            docker rm $(docker ps --filter 'status=exited' -a -q) 
+            docker run -d --name gonggangbe -p 8080:${{secrets.SERVICE_PORT}} -e JAVA_OPTS=-Djasypt.encryptor.password=${{secrets.JASYPT_ENCRYPTOR_PASSWORD}} ${{secrets.DOCKER_USERNAME}}/gonggangbe:latest
+            docker image prune -a -f
