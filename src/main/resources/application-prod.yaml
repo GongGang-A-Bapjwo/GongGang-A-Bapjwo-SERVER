@@ -1,14 +1,14 @@
 spring:
   datasource:
-    url: ENC(3osjggnH/eMDJdk+amCZ37I04q9L4zS8M+GKDDim1yPhpcTsqtxaoPxxt+hZJjRK/iJHHwFufS5cOmmPz2Obmw==)
-    username: ENC(ihpARhocPlg5lL/JzHiQBg==)
-    password: ENC(RttvCiAcjCjzsZyZuCT4jv8DUgr6I/Qw)
-    driver-class-name: org.mariadb.jdbc.Driver
+    url: ENC(a1FOUvfvUn618xVSNf2Ua51Atjf/2SHsL0GE0gRpu0FY3z6oAUBIS+AE9qRZPhGPigfNbclpj7990RVRw4dvhRcff4W4RLOvyQ3XIIRqskx7hfG7ZAoXRQ==)
+    username: ENC(PsHF+ccFKU1oUfIIMW5CQw==)
+    password: ENC(iyzkesbRcNNDIZQ3CAyEaSbHmODgarHw)
+    driver-class-name: oracle.jdbc.OracleDriver
   jpa:
     generate-ddl: true
     show-sql: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     properties:
       hibernate:
         format_sql: true

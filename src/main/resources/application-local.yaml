@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:mariadb://localhost:3306/gonggang
-    username: root
-    password:
-    driver-class-name: org.mariadb.jdbc.Driver
+    url: ENC(DkBjzzFPXroqHAPpx38cbsNEW/gDW+km0yH5giBBTtYcbVm6cdmAeE8hkiKdrsEQq/Bt6UF603qr0Lyp2oHvuxqMZWHIbSVsxMbsu8CjJZ2n0gvIPxI20g==)
+    username: ENC(AoCeej33qfheUlcxWWBiQA==)
+    password: ENC(elKaMQowOytkUTRG2gPA0VpmFZAJjO39)
+    driver-class-name: oracle.jdbc.OracleDriver
   jpa:
     generate-ddl: true
     show-sql: false
@@ -14,7 +14,6 @@ spring:
         format_sql: true
         jdbc:
           time_zone: Asia/Seoul
-
 app:
   server:
     url: http://localhost:8080
