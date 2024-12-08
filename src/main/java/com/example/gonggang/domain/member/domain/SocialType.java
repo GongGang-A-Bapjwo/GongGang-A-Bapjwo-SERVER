@@ -1,10 +1,10 @@
 package com.example.gonggang.domain.member.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum SocialType {
 	KAKAO("KAKAO"),
 	;
