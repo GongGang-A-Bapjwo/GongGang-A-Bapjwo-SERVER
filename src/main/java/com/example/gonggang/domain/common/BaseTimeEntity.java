@@ -1,4 +1,4 @@
-package com.example.gonggang.domain;
+package com.example.gonggang.domain.common;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
