@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.example.gonggang.domain.BaseTimeEntity;
+import com.example.gonggang.domain.common.BaseTimeEntity;
 import com.example.gonggang.domain.users.domain.Users;
 
 import jakarta.persistence.Column;
@@ -18,6 +18,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,7 +33,8 @@ public class Member extends BaseTimeEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false)
+	@Column
+	@NotNull
 	private String nickname;
 
 	@Column
@@ -44,18 +46,22 @@ public class Member extends BaseTimeEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
+	@NotNull
 	private Users user;
 
-	@Column(nullable = false)
+	@Column
+	@NotNull
 	private Long socialId;
 
 	@Enumerated(EnumType.STRING)
 	private SocialType socialType;
 
-	@Column(nullable = false)
+	@Column
+	@NotNull
 	private String timeTableImageUrl;
 
-	@Column(nullable = false)
+	@Column
+	@NotNull
 	private RegisterType registerType;
 
 	@Builder
