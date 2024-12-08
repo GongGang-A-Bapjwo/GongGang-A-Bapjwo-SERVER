@@ -201,6 +201,6 @@ gradle-app.setting
 *.hprof
 
 ### Oracle Cloud Wallet ###
-/src/main/resources/OracleCloud/
+/src/main/resources/oraclecloud/
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,macos,java,gradle

@@ -14,6 +14,19 @@ spring:
         format_sql: true
         jdbc:
           time_zone: Asia/Seoul
+
+cloud:
+  aws:
+    cloudfront:
+      url: ENC(p8XEFOOSoqMh3CLzb/yZUorSPKDaJf5H4RB+tNwDvrBxS+2m5KbyaIZaxNJshUw9)
+    s3:
+      bucket: ENC(ksOSXWEFREJZf22fsOtppTzN3DwsbSmE)
+    region:
+      static: ENC(Fj3fsOzDypuabZy7pK3wbSNFLj1Pgzub)
+    credentials:
+      accessKey: ENC(GBspJbqgCs4V9qgwP2Tb270mOOVMfmKD+fJKAvYQzwU=)
+      secretKey: ENC(qWeZwBkr6hTjFq0naiqTLF+zab9z2lXyKnzyD9ADe3Vyl5JLEVfAZFF40rk6CQplTu9hJ6QM8Do=)
+
 app:
   server:
     url: http://localhost:8080

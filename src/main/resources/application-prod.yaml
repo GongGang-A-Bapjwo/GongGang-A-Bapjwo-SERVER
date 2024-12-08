@@ -15,6 +15,18 @@ spring:
         jdbc:
           time_zone: Asia/Seoul
 
+cloud:
+  aws:
+    cloudfront:
+      url: ENC(NYsFpWlzY27hQxr8qOfHAJ/uzjXFRVAXTG0CzlnenKIi+1i4WFAIxkPROI/4nC0w)
+    s3:
+      bucket: ENC(e+Cwi1Ov/JY10MANkePGpHh5RGLQG35m)
+    region:
+      static: ENC(SgyprOhxXFKYQcsT0lRTqfGkGdt90gg3)
+    credentials:
+      accessKey: ENC(eOFgsyG9NtbczQqZ03G8SU61SU70XHuYauFECejGgK4=)
+      secretKey: ENC(5PM8joGyf8nJLh9xJpvWPIWxT5cjHH3J5O+LMk6W3dzuXE3yEaL2G65KPYgIy2zaHNqzwuIAtDQ=)
+
 app:
   server:
     url: ENC(OqXzdllHjTlA0R8KgCf1VkFvbWOlb9OtjmqEofP/rrUMk2QFH0uZsg==)
