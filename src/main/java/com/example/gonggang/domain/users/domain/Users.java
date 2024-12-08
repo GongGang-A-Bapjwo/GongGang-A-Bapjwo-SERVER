@@ -1,6 +1,6 @@
 package com.example.gonggang.domain.users.domain;
 
-import com.example.gonggang.domain.BaseTimeEntity;
+import com.example.gonggang.domain.common.BaseTimeEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +9,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,7 +27,8 @@ public class Users extends BaseTimeEntity {
 	private Long id;
 
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false, columnDefinition = "varchar(10) default 'MEMBER'")
+	@Column(columnDefinition = "varchar(10) default 'MEMBER'")
+	@NotNull
 	private Role role;
 
 	@Builder
