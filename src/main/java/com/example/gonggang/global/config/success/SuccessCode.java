@@ -1,10 +1,10 @@
 package com.example.gonggang.global.config.success;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum SuccessCode {
     ;
     private final int httpStatus;
