@@ -29,23 +29,19 @@ public class AppointmentParticipant extends BaseTimeEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column
-	@NotNull
+	@Column(nullable = false)
 	private boolean isOwner;
 
-	@Column
-	@NotNull
+	@Column(nullable = false)
 	private boolean hasLeft;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "participants_id")
-	@NotNull
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Users participant;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "appointment_room_id")
-	@NotNull
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private AppointmentRoom appointmentRoom;
 

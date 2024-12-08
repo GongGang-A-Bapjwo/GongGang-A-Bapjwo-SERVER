@@ -34,22 +34,19 @@ public class FreeTime extends BaseTimeEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column
-	@NotNull
+	@Column(nullable = false)
 	private LocalTime startTime;
 
 	@Column
 	private LocalTime endTime;
 
 	@Enumerated(EnumType.STRING)
-	@Column
-	@NotNull
+	@Column(nullable = false)
 	private Weekday weekday;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn
+	@JoinColumn(nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@NotNull
 	private Users user;
 
 	@Builder

@@ -28,22 +28,18 @@ public class AppointmentBoard extends BaseTimeEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column
-	@NotNull
+	@Column(nullable = false)
 	private LocalTime startTime;
 
-	@Column
-	@NotNull
+	@Column(nullable = false)
 	private LocalTime endTime;
 
 	@Enumerated(EnumType.STRING)
-	@Column
-	@NotNull
+	@Column(nullable = false)
 	private Weekday weekday;
 
 	@Enumerated(EnumType.STRING)
-	@Column
-	@NotNull
+	@Column(nullable = false)
 	private Category category;
 
 	@Builder

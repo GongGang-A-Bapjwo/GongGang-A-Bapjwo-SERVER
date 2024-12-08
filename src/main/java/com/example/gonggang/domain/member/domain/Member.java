@@ -18,7 +18,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,8 +32,7 @@ public class Member extends BaseTimeEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column
-	@NotNull
+	@Column(nullable = false)
 	private String nickname;
 
 	@Column
@@ -44,24 +42,21 @@ public class Member extends BaseTimeEntity {
 	private LocalDateTime deletedAt;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@NotNull
 	private Users user;
 
-	@Column
-	@NotNull
-	private Long socialId;
+	@Column(nullable = false)
+	private long socialId;
 
 	@Enumerated(EnumType.STRING)
+	@Column
 	private SocialType socialType;
 
-	@Column
-	@NotNull
+	@Column(nullable = false)
 	private String timeTableImageUrl;
 
-	@Column
-	@NotNull
+	@Column(nullable = false)
 	private RegisterType registerType;
 
 	@Builder
@@ -104,3 +99,4 @@ public class Member extends BaseTimeEntity {
 			.build();
 	}
 }
+

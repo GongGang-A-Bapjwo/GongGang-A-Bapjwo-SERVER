@@ -28,12 +28,10 @@ public class AppointmentRoom extends BaseTimeEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column
-	@NotNull
+	@Column(nullable = false)
 	private int maxParticipants;
 
-	@Column
-	@NotNull
+	@Column(nullable = false)
 	private int currentParticipants;
 
 	@Column
@@ -43,21 +41,17 @@ public class AppointmentRoom extends BaseTimeEntity {
 	private LocalTime decidedEndTime;
 
 	@Enumerated(EnumType.STRING)
-	@Column
-	@NotNull
+	@Column(nullable = false)
 	private Weekday decidedWeekday;
 
-	@Column(length = 10)
-	@NotNull
+	@Column(length = 10, nullable = false)
 	private String entranceCode;
 
 	@Enumerated(EnumType.STRING)
-	@Column
-	@NotNull
+	@Column(nullable = false)
 	private Category category;
 
-	@Column(length = 20)
-	@NotNull
+	@Column(length = 20, nullable = false)
 	private String title;
 
 	@Builder

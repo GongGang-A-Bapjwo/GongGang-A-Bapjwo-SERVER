@@ -27,8 +27,7 @@ public class Users extends BaseTimeEntity {
 	private Long id;
 
 	@Enumerated(EnumType.STRING)
-	@Column(columnDefinition = "varchar(10) default 'MEMBER'")
-	@NotNull
+	@Column(columnDefinition = "varchar(10) default 'MEMBER'", nullable = false)
 	private Role role;
 
 	@Builder
