@@ -27,7 +27,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
         ObjectMapper mapper = new ObjectMapper();
         String jsonResponse = mapper.writeValueAsString(
-                new ErrorResponse(ErrorCode.ROLE_FORBIDDEN));
+                ErrorResponse.of(ErrorCode.ROLE_FORBIDDEN));
 
         response.getWriter().write(jsonResponse);
     }

@@ -9,7 +9,7 @@ public class ErrorResponse {
     private final String message;
     private final String code;
 
-    public ErrorResponse(ErrorCode errorCode) {
+    private ErrorResponse(ErrorCode errorCode) {
         this.httpStatus = errorCode.getHttpStatus();
         this.message = errorCode.getMessage();
         this.code = errorCode.getCode();
