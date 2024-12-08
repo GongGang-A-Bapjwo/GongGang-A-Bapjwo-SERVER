@@ -1,5 +1,6 @@
 package com.example.gonggang.global.config;
 
+import com.example.gonggang.global.config.error.exception.CustomAccessDeniedHandler;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+	private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -32,6 +34,11 @@ public class SecurityConfig {
 			.formLogin(AbstractHttpConfigurer::disable)
 			.sessionManagement(
 				(sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+		http.exceptionHandling(exceptionHandlingCustomizer ->
+				exceptionHandlingCustomizer
+						.accessDeniedHandler(customAccessDeniedHandler)
+		);
 
 		http
 			.authorizeHttpRequests((authorize) ->
