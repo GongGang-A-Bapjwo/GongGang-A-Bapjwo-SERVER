@@ -1,4 +1,4 @@
-package com.example.gonggang.domain.external;
+package com.example.gonggang.domain.external.S3;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.gonggang.domain.external.exception.FileProcessingFailException;
-import com.example.gonggang.domain.external.exception.S3UploadFailException;
+import com.example.gonggang.domain.external.S3.exception.FileProcessingFailException;
+import com.example.gonggang.domain.external.S3.exception.S3UploadFailException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
