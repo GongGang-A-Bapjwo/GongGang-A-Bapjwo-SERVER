@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ENC(DkBjzzFPXroqHAPpx38cbsNEW/gDW+km0yH5giBBTtYcbVm6cdmAeE8hkiKdrsEQq/Bt6UF603qr0Lyp2oHvuxqMZWHIbSVsxMbsu8CjJZ2n0gvIPxI20g==)
+    url: ENC(P/y/en3B7l6XZ4lT6vFm/jotRCGAYHdbcoezdhOzSZbqreb3YsW+ndqPBeXkyhnULD9K4Ql7kqdmYAa1S+mvUXShjmK7IasJFcc9TseoWJL+a9kigKs0wg==)
     username: ENC(AoCeej33qfheUlcxWWBiQA==)
     password: ENC(elKaMQowOytkUTRG2gPA0VpmFZAJjO39)
     driver-class-name: oracle.jdbc.OracleDriver
