@@ -14,6 +14,28 @@ spring:
         format_sql: true
         jdbc:
           time_zone: Asia/Seoul
+  data:
+    redis:
+      host: ENC(XAMM6J374+ObwFZ0+j+eYcaVzqjoiLW/)
+      port: 6379
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: ENC(97Dd6ms+JA/E9GuNdnceezMHrJt1y1JopdfSje5q44Ax8bqvnTPJEqtPUk3X6q3U)
+            client-secret: ENC(gey7e14CRpmo9hN7REH2rQokfOgVk1VaoELUhdRoR9XdpV9nW92n771302ckEYud)
+            redirect-uri: ENC(eNtvCqwsj8HJMyfyV7DAXMBT8J91DjuuVZC/zHnXDUMjss1gWiTSpuX73C2rgEeIO+3AgHa+kVhudZmsUUF0Mw==)
+            client-authentication-method: POST
+            authorization-grant-type: authorization_code
+            scope: profile_nickname, account_email
+            client-name: Kakao
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
 
 cloud:
   aws:
@@ -27,6 +49,14 @@ cloud:
       accessKey: ENC(eOFgsyG9NtbczQqZ03G8SU61SU70XHuYauFECejGgK4=)
       secretKey: ENC(5PM8joGyf8nJLh9xJpvWPIWxT5cjHH3J5O+LMk6W3dzuXE3yEaL2G65KPYgIy2zaHNqzwuIAtDQ=)
 
+jwt:
+  secret: ENC(VIQTMU7Fj420n7rn5zF52KCnt9D57+M8AtUodATEmcYEWLCT5GqkRg==)
+  access-token-expire-time: ENC(qsTJOF17xHFt3kWKPTuRUQ==)
+  refresh-token-expire-time: ENC(tSmeJoRjo5aFk8U1/2mAxJuaZwGAqOvW)
+
 app:
   server:
     url: ENC(OqXzdllHjTlA0R8KgCf1VkFvbWOlb9OtjmqEofP/rrUMk2QFH0uZsg==)
+
+cors:
+  allowed-origins: ENC(NtYdh5s8/uGJWP5KCdsCNR5b6c3rDlHuCToQHMIlT0VJO0APfmZYBnw7Sl66LyS3aY3oR24GSh0=)
