@@ -2,8 +2,6 @@ package com.example.gonggang.admin.application;
 
 import java.util.Collections;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,6 +14,7 @@ import com.example.gonggang.admin.repository.AdminRepository;
 import com.example.gonggang.domain.member.dto.LoginSuccessResponse;
 import com.example.gonggang.domain.users.domain.Role;
 import com.example.gonggang.global.auth.jwt.provider.JwtTokenProvider;
+import com.example.gonggang.global.auth.security.AdminAuthentication;
 import com.example.gonggang.global.config.success.SuccessCode;
 
 import lombok.RequiredArgsConstructor;
@@ -39,9 +38,8 @@ public class AdminAuthService {
 		Admin admin = adminRepository.findByUsername(username).orElseThrow(AdminNotFoundException::new);
 		validatePassword(password, admin);
 
-		Authentication authentication = new UsernamePasswordAuthenticationToken(
-			admin.getId(), null, Collections.singletonList(new SimpleGrantedAuthority(Role.ADMIN.getRoleName()))
-		);
+		AdminAuthentication authentication = new AdminAuthentication(admin.getId(), null,
+			Collections.singletonList(new SimpleGrantedAuthority(Role.ADMIN.getRoleName())));
 
 		String accessToken = jwtTokenProvider.issueAccessToken(authentication);
 		String refreshToken = jwtTokenProvider.issueRefreshToken(authentication);
