@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AppointmentController {
     private final AppointmentManageService appointmentManageService;
 
-    @PostMapping("/")
+    @PostMapping()
     public ResponseEntity<AppointmentCreateResponse> create(@CurrentMember Long userId, @RequestBody AppointmentCreateRequest appointmentCreateRequest) {
         AppointmentCreateResponse result = appointmentManageService.create(userId, appointmentCreateRequest);
         return ResponseEntity.ok(result);
