@@ -44,4 +44,9 @@ public class MemberService {
 
 		userRepository.delete(users);
 	}
+
+	@Transactional
+	public Member saveMember(Member member) {
+		return memberRepository.save(member);
+	}
 }
