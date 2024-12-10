@@ -42,4 +42,9 @@ public class AdminController implements AdminApi {
 			.body(LoginSuccessResponse.of(loginSuccessResponse.accessToken(), null, loginSuccessResponse.nickname(),
 				loginSuccessResponse.role()));
 	}
+
+	@Override
+	public ResponseEntity<String> healthCheck(){
+		return ResponseEntity.ok().body("ok");
+	}
 }
