@@ -20,6 +20,7 @@ public enum ErrorCode {
 	PASSWORD_NOT_MATCH(403, "PASSWORD_NOT_MATCH", "비밀번호가 일치하지 않습니다."),
 	ROLE_FORBIDDEN(403, "ROLE_FORBIDDEN", "액세스할 수 있는 권한이 아닙니다."),
 	MEMBER_NOT_FOUND(404, "MEMBER_NOT_FOUND", "회원이 없습니다"),
+	USER_NOT_FOUND(404,"USER_NOT_FOUND","존재하지 않는 유저입니다."),
 	ADMIN_NOT_FOUND(404, "ADMIN_NOT_FOUND", "존재하지 않는 관리자입니다."),
 	REFRESH_TOKEN_NOT_FOUND(404, "REFRESH_TOKEN_NOT_FOUND", "리프레쉬 토큰이 존재하지 않습니다"),
 	INTERNAL_SERVER_ERROR(500, "INTERNAL_SERVER_ERROR", "서버 오류가 발생했습니다."),
