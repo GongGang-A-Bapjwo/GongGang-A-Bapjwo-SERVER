@@ -76,6 +76,7 @@ public class AppointmentManageService {
                 .map(participantEntry -> {
                     AppointmentRoom room = participantEntry.getAppointmentRoom();
                     return new AppointmentsGetResponse(
+                            room.getId(),
                             room.getTitle(),
                             room.getCategory(),
                             participantEntry.isOwner(),

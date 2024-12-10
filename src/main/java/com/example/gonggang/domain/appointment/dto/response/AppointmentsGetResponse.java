@@ -5,6 +5,7 @@ import com.example.gonggang.domain.common.Weekday;
 import java.time.LocalTime;
 
 public record AppointmentsGetResponse(
+        Long id,
         String title,
         Category category,
         boolean isOwner,
