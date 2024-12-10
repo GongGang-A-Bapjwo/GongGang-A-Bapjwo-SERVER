@@ -41,7 +41,7 @@ public class AppointmentRoom extends BaseTimeEntity {
 	private LocalTime decidedEndTime;
 
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column
 	private Weekday decidedWeekday;
 
 	@Column(length = 10, nullable = false)

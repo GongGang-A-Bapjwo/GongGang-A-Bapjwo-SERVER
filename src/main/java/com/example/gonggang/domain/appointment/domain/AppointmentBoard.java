@@ -42,6 +42,8 @@ public class AppointmentBoard extends BaseTimeEntity {
 	@Column(nullable = false)
 	private Category category;
 
+	//TODO: 오픈채팅 url 필드 추가
+
 	@Builder
 	private AppointmentBoard(
 		final LocalTime startTime,
