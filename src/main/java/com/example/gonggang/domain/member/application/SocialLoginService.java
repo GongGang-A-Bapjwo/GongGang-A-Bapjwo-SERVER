@@ -7,7 +7,6 @@ import com.example.gonggang.domain.member.domain.Member;
 import com.example.gonggang.domain.member.domain.SocialType;
 import com.example.gonggang.domain.member.dto.LoginSuccessResponse;
 import com.example.gonggang.domain.member.exception.SocialTypeBadRequestExcepption;
-import com.example.gonggang.domain.member.port.in.MemberUseCase;
 import com.example.gonggang.domain.users.domain.Users;
 import com.example.gonggang.global.auth.client.application.KakaoSocialService;
 import com.example.gonggang.global.auth.client.application.SocialService;
@@ -25,7 +24,7 @@ public class SocialLoginService {
 	private final MemberRegistrationService memberRegistrationService;
 	private final AuthenticationService authenticationService;
 	private final KakaoSocialService kakaoSocialService;
-	private final MemberUseCase memberUseCase;
+	private final MemberService memberService;
 
 	/**
 	 * 소셜 로그인 또는 회원가입을 처리하는 메서드.
@@ -86,7 +85,7 @@ public class SocialLoginService {
 		Long memberId = findOrRegisterMember(memberInfoResponse);
 		log.info("Found or registered member with memberId: {}", memberId);
 
-		Member member = memberUseCase.findMemberByMemberId(memberId);
+		Member member = memberService.findMemberByMemberId(memberId);
 		Users user = member.getUser();
 
 		log.info("User role before generating token: {}", user.getRole());
@@ -102,11 +101,11 @@ public class SocialLoginService {
 	 * @return 등록된 회원 또는 기존 회원의 ID
 	 */
 	private Long findOrRegisterMember(final MemberInfoResponse memberInfoResponse) {
-		boolean memberExists = memberUseCase.checkMemberExistsBySocialIdAndSocialType(memberInfoResponse.socialId(),
+		boolean memberExists = memberService.checkMemberExistsBySocialIdAndSocialType(memberInfoResponse.socialId(),
 			memberInfoResponse.socialType());
 
 		if (memberExists) {
-			Member existingMember = memberUseCase.findMemberBySocialIdAndSocialType(memberInfoResponse.socialId(),
+			Member existingMember = memberService.findMemberBySocialIdAndSocialType(memberInfoResponse.socialId(),
 				memberInfoResponse.socialType());
 			log.info("Existing member role: {}", existingMember.getUser().getRole());
 			return existingMember.getId();

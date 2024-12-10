@@ -1,4 +1,4 @@
-package com.example.gonggang.admin.adapter.in.api;
+package com.example.gonggang.admin.api;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;

@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.gonggang.domain.member.domain.Member;
 import com.example.gonggang.domain.member.domain.SocialType;
 import com.example.gonggang.domain.member.exception.MemberNotFoundExcepption;
-import com.example.gonggang.domain.member.port.in.MemberUseCase;
 import com.example.gonggang.domain.member.repository.MemberRepository;
 import com.example.gonggang.domain.users.domain.Users;
 import com.example.gonggang.domain.users.repository.UserRepository;
@@ -18,23 +17,20 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
-public class MemberService implements MemberUseCase {
+public class MemberService {
 	private final UserRepository userRepository;
 	private final MemberRepository memberRepository;
 
-	@Override
 	@Transactional(readOnly = true)
 	public Member findMemberByMemberId(Long memberId) {
 		return memberRepository.findById(memberId).orElseThrow(MemberNotFoundExcepption::new);
 	}
 
-	@Override
 	@Transactional(readOnly = true)
 	public boolean checkMemberExistsBySocialIdAndSocialType(final Long socialId, final SocialType socialType) {
 		return memberRepository.findBySocialTypeAndSocialId(socialId, socialType).isPresent();
 	}
 
-	@Override
 	@Transactional(readOnly = true)
 	public Member findMemberBySocialIdAndSocialType(final Long socialId, final SocialType socialType) {
 		return memberRepository.findBySocialTypeAndSocialId(socialId, socialType)
