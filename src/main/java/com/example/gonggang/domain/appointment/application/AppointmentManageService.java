@@ -24,6 +24,7 @@ public class AppointmentManageService {
     private final AppointmentParticipantSaveService appointmentParticipantSaveService;
     private final AppointmentRoomGetService appointmentRoomGetService;
     private final ParticipantGetService participantGetService;
+    private final AppointmentRoomDeleteService appointmentRoomDeleteService;
 
     @Transactional
     public AppointmentCreateResponse create(Long userId, AppointmentCreateRequest appointmentCreateRequest) {
@@ -63,11 +64,12 @@ public class AppointmentManageService {
         if (!appointmentRoom.isAvailable()) {
             throw new AppointmentRoomMaxAppointmentException();
         }
-        if (participantGetService.checkAlreadyEntered(user)) {
+        if (participantGetService.checkAlreadyEntered(user, appointmentRoom)) {
             throw new AlreadyEnteredException();
         }
     }
 
+    @Transactional(readOnly = true)
     public List<AppointmentsGetResponse> readAll(Long userId) {
         Users user = userGetService.findByMemberId(userId);
         List<AppointmentParticipant> participants = participantGetService.findAllByParticipants(user);
@@ -86,5 +88,20 @@ public class AppointmentManageService {
                     );
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void delete(Long userId, Long roomId) {
+        Users user = userGetService.findByMemberId(userId);
+        AppointmentParticipant appointmentParticipant = participantGetService.findByParticipantAndRoom(user,
+                roomId);
+
+        appointmentParticipant.disable();
+
+        if (appointmentParticipant.isOwner()) {
+            AppointmentRoom room = appointmentRoomGetService.findByRoomId(roomId);
+            appointmentRoomDeleteService.delete(room);
+        }
+
     }
 }
