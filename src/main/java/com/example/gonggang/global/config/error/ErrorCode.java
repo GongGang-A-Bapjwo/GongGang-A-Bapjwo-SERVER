@@ -37,6 +37,7 @@ public enum ErrorCode {
 	UNKNOWN_REFRESH_TOKEN_ERROR(500, "UNKNOWN_REFRESH_TOKEN_ERROR", "알 수 없는 리프레쉬 토큰 오류가 발생했습니다"),
 	S3_UPLOAD_FAIL(500, "S3_UPLOAD_FAIL", "S3 업로드 중 오류가 발생했습니다.");
 
+
 	private final Integer httpStatus;
 	private final String code;
 	private final String message;
