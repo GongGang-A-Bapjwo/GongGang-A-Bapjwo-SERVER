@@ -13,7 +13,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotNull;
+import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -41,7 +41,7 @@ public class AppointmentRoom extends BaseTimeEntity {
 	private LocalTime decidedEndTime;
 
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column
 	private Weekday decidedWeekday;
 
 	@Column(length = 10, nullable = false)
@@ -95,5 +95,28 @@ public class AppointmentRoom extends BaseTimeEntity {
 			.category(category)
 			.title(title)
 			.build();
+	}
+
+	public static AppointmentRoom initCreate(
+			final int maxParticipants,
+			final String entranceCode,
+			final Category category,
+			final String title
+	) {
+		return AppointmentRoom.builder()
+				.maxParticipants(maxParticipants)
+				.currentParticipants(1)
+				.decidedStartTime(null)
+				.decidedEndTime(null)
+				.decidedWeekday(null)
+				.entranceCode(entranceCode)
+				.category(category)
+				.title(title)
+				.build();
+	}
+
+	public static String generateEntranceCode() {
+		String uuid = UUID.randomUUID().toString().replace("-", "");
+		return uuid.substring(0, 10);
 	}
 }
