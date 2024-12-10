@@ -56,8 +56,8 @@ public class AppointmentManageService {
 
         AppointmentParticipant appointmentParticipant = AppointmentParticipant.create(user, appointmentRoom, false,
                 false);
-
         appointmentParticipantSaveService.save(appointmentParticipant);
+        appointmentRoom.plusCurrentParticipants();
     }
 
     private void checkAvailable(AppointmentRoom appointmentRoom, Users user) {
@@ -95,13 +95,14 @@ public class AppointmentManageService {
         Users user = userGetService.findByMemberId(userId);
         AppointmentParticipant appointmentParticipant = participantGetService.findByParticipantAndRoom(user,
                 roomId);
-
-        appointmentParticipant.disable();
+        AppointmentRoom room = appointmentRoomGetService.findByRoomId(roomId);
 
         if (appointmentParticipant.isOwner()) {
-            AppointmentRoom room = appointmentRoomGetService.findByRoomId(roomId);
             appointmentRoomDeleteService.delete(room);
         }
+
+        room.minusCurrentParticipants();
+        appointmentParticipant.disable();
 
     }
 }
