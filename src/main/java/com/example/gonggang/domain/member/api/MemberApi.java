@@ -1,7 +1,6 @@
 package com.example.gonggang.domain.member.api;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,6 +9,7 @@ import com.example.gonggang.domain.member.dto.AccessTokenGetSuccess;
 import com.example.gonggang.domain.member.dto.LoginSuccessResponse;
 import com.example.gonggang.global.auth.annotation.CurrentMember;
 import com.example.gonggang.global.auth.client.dto.MemberLoginRequest;
+import com.example.gonggang.global.config.error.ErrorResponse;
 import com.example.gonggang.global.config.swagger.annotation.DisableSwaggerSecurity;
 
 import io.swagger.v3.oas.annotations.Operation;
