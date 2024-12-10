@@ -5,6 +5,7 @@ import com.example.gonggang.domain.appointment.domain.AppointmentRoom;
 import com.example.gonggang.domain.appointment.dto.request.AppointmentCreateRequest;
 import com.example.gonggang.domain.appointment.dto.request.AppointmentEnterRequest;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentCreateResponse;
+import com.example.gonggang.domain.appointment.exception.AlreadyEnteredException;
 import com.example.gonggang.domain.appointment.exception.AppointmentRoomMaxAppointmentException;
 import com.example.gonggang.domain.users.domain.Users;
 import com.example.gonggang.domain.users.service.UserGetService;
@@ -19,6 +20,7 @@ public class AppointmentManageService {
     private final UserGetService userGetService;
     private final AppointmentParticipantSaveService appointmentParticipantSaveService;
     private final AppointmentRoomGetService appointmentRoomGetService;
+    private final ParticipantGetService participantGetService;
 
     @Transactional
     public AppointmentCreateResponse create(Long userId, AppointmentCreateRequest appointmentCreateRequest) {
@@ -46,13 +48,20 @@ public class AppointmentManageService {
         AppointmentRoom appointmentRoom = appointmentRoomGetService.findByEnteranceCode(
                 appointmentEnterRequest.entranceCode());
 
-        if (!appointmentRoom.isAvailable()) {
-            throw new AppointmentRoomMaxAppointmentException();
-        }
+        checkAvailable(appointmentRoom,user);
 
         AppointmentParticipant appointmentParticipant = AppointmentParticipant.create(user, appointmentRoom, false,
                 false);
 
         appointmentParticipantSaveService.save(appointmentParticipant);
+    }
+
+    private void checkAvailable(AppointmentRoom appointmentRoom, Users user) {
+        if (!appointmentRoom.isAvailable()) {
+            throw new AppointmentRoomMaxAppointmentException();
+        }
+        if (participantGetService.checkAlreadyEntered(user)) {
+            throw new AlreadyEnteredException();
+        }
     }
 }
