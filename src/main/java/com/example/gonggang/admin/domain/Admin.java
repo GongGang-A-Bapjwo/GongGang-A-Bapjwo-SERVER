@@ -17,17 +17,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Admin {
 
-	@Column(nullable = false)
-	Role role;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
+
 	@Column(nullable = false)
 	private String username;
+
 	@Column(nullable = false)
 	private String adminPassword;
-	@Column
-	private String refreshToken;
+
+	@Column(nullable = false)
+	Role role;
 
 	@Builder
 	private Admin(String username, String adminPassword, Role role) {
@@ -44,4 +45,3 @@ public class Admin {
 			.build();
 	}
 }
-
