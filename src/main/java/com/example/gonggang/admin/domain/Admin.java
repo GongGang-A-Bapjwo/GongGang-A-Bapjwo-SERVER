@@ -19,17 +19,13 @@ public class Admin {
 
 	@Column(nullable = false)
 	Role role;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
-
 	@Column(nullable = false)
 	private String username;
-
 	@Column(nullable = false)
 	private String adminPassword;
-
 	@Column
 	private String refreshToken;
 
