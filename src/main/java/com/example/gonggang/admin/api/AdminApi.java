@@ -1,6 +1,7 @@
 package com.example.gonggang.admin.api;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -58,4 +59,7 @@ public interface AdminApi {
 	)
 	@PostMapping("/login")
 	ResponseEntity<LoginSuccessResponse> login(@RequestBody AdminLoginRequest request, HttpServletResponse response);
+
+	@GetMapping("/health-check")
+	ResponseEntity<String> healthCheck();
 }
