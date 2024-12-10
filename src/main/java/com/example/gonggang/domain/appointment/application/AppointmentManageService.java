@@ -5,10 +5,13 @@ import com.example.gonggang.domain.appointment.domain.AppointmentRoom;
 import com.example.gonggang.domain.appointment.dto.request.AppointmentCreateRequest;
 import com.example.gonggang.domain.appointment.dto.request.AppointmentEnterRequest;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentCreateResponse;
+import com.example.gonggang.domain.appointment.dto.response.AppointmentsGetResponse;
 import com.example.gonggang.domain.appointment.exception.AlreadyEnteredException;
 import com.example.gonggang.domain.appointment.exception.AppointmentRoomMaxAppointmentException;
 import com.example.gonggang.domain.users.domain.Users;
 import com.example.gonggang.domain.users.service.UserGetService;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,5 +66,24 @@ public class AppointmentManageService {
         if (participantGetService.checkAlreadyEntered(user)) {
             throw new AlreadyEnteredException();
         }
+    }
+
+    public List<AppointmentsGetResponse> readAll(Long userId) {
+        Users user = userGetService.findByMemberId(userId);
+        List<AppointmentParticipant> participants = participantGetService.findAllByParticipants(user);
+
+        return participants.stream()
+                .map(participantEntry -> {
+                    AppointmentRoom room = participantEntry.getAppointmentRoom();
+                    return new AppointmentsGetResponse(
+                            room.getTitle(),
+                            room.getCategory(),
+                            participantEntry.isOwner(),
+                            room.getDecidedStartTime(),
+                            room.getDecidedEndTime(),
+                            room.getDecidedWeekday()
+                    );
+                })
+                .collect(Collectors.toList());
     }
 }
