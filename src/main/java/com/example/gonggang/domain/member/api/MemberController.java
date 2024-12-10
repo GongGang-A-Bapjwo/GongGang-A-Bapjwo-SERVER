@@ -72,6 +72,4 @@ public class MemberController implements MemberApi {
 		tokenService.deleteRefreshToken(memberId);
 		return ResponseEntity.ok().body(SuccessCode.SIGN_OUT_SUCCESS.getMessage());
 	}
-
-
 }
