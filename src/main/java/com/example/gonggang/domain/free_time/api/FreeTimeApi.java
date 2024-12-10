@@ -48,8 +48,7 @@ public interface FreeTimeApi {
 			)
 		}
 	)
-	@PostMapping("/upload-image")
-	public ResponseEntity<ImageUploadResponse> uploadFreeTimeImage(
+	ResponseEntity<ImageUploadResponse> uploadFreeTimeImage(
 		@CurrentMember Long memberId,
 		@RequestPart("file") MultipartFile file
 	);
