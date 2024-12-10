@@ -1,4 +1,4 @@
-package com.example.gonggang.domain.external.exception;
+package com.example.gonggang.domain.external.s3.exception;
 
 import com.example.gonggang.global.config.error.ErrorCode;
 import com.example.gonggang.global.config.error.exception.ServiceException;

@@ -1,67 +1,67 @@
 package com.example.gonggang.global.config;
 
-import com.example.gonggang.global.config.error.exception.CustomAccessDeniedHandler;
-import java.util.Arrays;
-import java.util.List;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.example.gonggang.domain.users.domain.Role;
+import com.example.gonggang.global.auth.jwt.filter.JwtAuthenticationFilter;
+import com.example.gonggang.global.auth.security.CustomAccessDeniedHandler;
+import com.example.gonggang.global.auth.security.CustomJwtAuthenticationEntryPoint;
 
 import lombok.RequiredArgsConstructor;
 
-@Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@Configuration
 public class SecurityConfig {
+
+	private static final String[] AUTH_WHITELIST = {
+		"/v3/api-docs/**",
+		"/swagger-ui/**",
+		"/swagger-resources/**",
+		"/api/users/sign-up",
+		"/api/admin/test-sign-up",
+		"/api/admin/login",
+		"/error",
+		"/"
+	};
+	private static final String[] AUTH_ADMIN_ONLY = {
+		"/api/admin/**"
+	};
+	private final JwtAuthenticationFilter jwtAuthenticationFilter;
+	private final CustomJwtAuthenticationEntryPoint customJwtAuthenticationEntryPoint;
 	private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
 	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http
-			.httpBasic(AbstractHttpConfigurer::disable)
-			.cors((cors) -> cors
-				.configurationSource(corsConfigurationSource())
-			)
-			.csrf(AbstractHttpConfigurer::disable)
-			.formLogin(AbstractHttpConfigurer::disable)
-			.sessionManagement(
-				(sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
-		http.exceptionHandling(exceptionHandlingCustomizer ->
-				exceptionHandlingCustomizer
-						.accessDeniedHandler(customAccessDeniedHandler)
-		);
-
-		http
-			.authorizeHttpRequests((authorize) ->
-				authorize
-					.requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll() // API 명세서
-					.anyRequest().permitAll()
-			);
-
-		return http.build();
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 	@Bean
-	CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList(
-			"http://localhost:8080",
-			"http://localhost:3000"));
-		configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
-		configuration.setAllowCredentials(true);
-		configuration.setAllowedHeaders(List.of("*"));
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.csrf(AbstractHttpConfigurer::disable)
+			.formLogin(AbstractHttpConfigurer::disable)
+			.httpBasic(AbstractHttpConfigurer::disable)
+			.sessionManagement(session ->
+				session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+			.exceptionHandling(exception ->
+				exception.authenticationEntryPoint(customJwtAuthenticationEntryPoint)
+					.accessDeniedHandler(customAccessDeniedHandler));
 
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", configuration);
-		return source;
+		http.authorizeHttpRequests(auth ->
+				auth.requestMatchers(AUTH_WHITELIST).permitAll()
+					.requestMatchers(AUTH_ADMIN_ONLY).hasAuthority(Role.ADMIN.getRoleName())
+					.anyRequest().authenticated())
+			.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+		return http.build();
 	}
 }

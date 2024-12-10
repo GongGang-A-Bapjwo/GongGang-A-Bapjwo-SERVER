@@ -53,10 +53,10 @@ public class Member extends BaseTimeEntity {
 	@Column
 	private SocialType socialType;
 
-	@Column(nullable = false)
+	@Column
 	private String timeTableImageUrl;
 
-	@Column(nullable = false)
+	@Column
 	private RegisterType registerType;
 
 	@Builder
@@ -84,9 +84,7 @@ public class Member extends BaseTimeEntity {
 		final String email,
 		final Users user,
 		final Long socialId,
-		final SocialType socialType,
-		final String timeTableImageUrl,
-		final RegisterType registerType
+		final SocialType socialType
 	) {
 		return Member.builder()
 			.nickname(nickname)
@@ -94,8 +92,6 @@ public class Member extends BaseTimeEntity {
 			.user(user)
 			.socialId(socialId)
 			.socialType(socialType)
-			.timeTableImageUrl(timeTableImageUrl)
-			.registerType(registerType)
 			.build();
 	}
 }
