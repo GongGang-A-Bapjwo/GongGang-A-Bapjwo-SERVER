@@ -6,4 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AppointmentRoomRepository extends JpaRepository<AppointmentRoom, Long> {
     Optional<AppointmentRoom> findByEntranceCode(String enteranceCode);
+
+    Optional<AppointmentRoom> findById(Long id);
+
+    void delete(AppointmentRoom room);
 }
