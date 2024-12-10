@@ -119,4 +119,8 @@ public class AppointmentRoom extends BaseTimeEntity {
 		String uuid = UUID.randomUUID().toString().replace("-", "");
 		return uuid.substring(0, 10);
 	}
+
+	public boolean isAvailable() {
+		return this.maxParticipants >= this.currentParticipants + 1;
+	}
 }
