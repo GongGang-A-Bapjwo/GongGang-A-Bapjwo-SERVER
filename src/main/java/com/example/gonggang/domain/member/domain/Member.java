@@ -94,5 +94,9 @@ public class Member extends BaseTimeEntity {
 			.socialType(socialType)
 			.build();
 	}
+
+	public void updateTimeTableImageUrl(String imageUrl) {
+		this.timeTableImageUrl = imageUrl;
+	}
 }
 

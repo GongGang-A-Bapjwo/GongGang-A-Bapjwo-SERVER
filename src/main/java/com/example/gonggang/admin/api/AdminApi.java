@@ -1,13 +1,13 @@
 package com.example.gonggang.admin.api;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.gonggang.admin.application.dto.request.AdminLoginRequest;
 import com.example.gonggang.admin.application.dto.request.AdminRegisterRequest;
 import com.example.gonggang.domain.member.dto.LoginSuccessResponse;
+import com.example.gonggang.global.config.error.ErrorResponse;
 import com.example.gonggang.global.config.swagger.annotation.DisableSwaggerSecurity;
 
 import io.swagger.v3.oas.annotations.Operation;

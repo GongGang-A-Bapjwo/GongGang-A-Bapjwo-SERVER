@@ -37,17 +37,13 @@ spring:
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
 
-cloud:
-  aws:
-    cloudfront:
-      url: ENC(p8XEFOOSoqMh3CLzb/yZUorSPKDaJf5H4RB+tNwDvrBxS+2m5KbyaIZaxNJshUw9)
-    s3:
-      bucket: ENC(ksOSXWEFREJZf22fsOtppTzN3DwsbSmE)
-    region:
-      static: ENC(Fj3fsOzDypuabZy7pK3wbSNFLj1Pgzub)
-    credentials:
-      accessKey: ENC(GBspJbqgCs4V9qgwP2Tb270mOOVMfmKD+fJKAvYQzwU=)
-      secretKey: ENC(qWeZwBkr6hTjFq0naiqTLF+zab9z2lXyKnzyD9ADe3Vyl5JLEVfAZFF40rk6CQplTu9hJ6QM8Do=)
+aws-property:
+  s3-bucket-name: ENC(ksOSXWEFREJZf22fsOtppTzN3DwsbSmE)
+  access-key: ENC(GBspJbqgCs4V9qgwP2Tb270mOOVMfmKD+fJKAvYQzwU=)
+  secret-key: ENC(qWeZwBkr6hTjFq0naiqTLF+zab9z2lXyKnzyD9ADe3Vyl5JLEVfAZFF40rk6CQplTu9hJ6QM8Do=)
+  aws-region: ENC(Fj3fsOzDypuabZy7pK3wbSNFLj1Pgzub)
+  cloudfront:
+    url: ENC(p8XEFOOSoqMh3CLzb/yZUorSPKDaJf5H4RB+tNwDvrBxS+2m5KbyaIZaxNJshUw9)
 
 jwt:
   secret: ENC(R0mecsWh3Vw+b0qZEzAkoaEQb0MjS3MKax/QCcfZZBkzJzgqkls2Zw==)
