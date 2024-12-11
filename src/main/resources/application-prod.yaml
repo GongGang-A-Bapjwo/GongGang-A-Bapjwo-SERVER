@@ -16,7 +16,7 @@ spring:
           time_zone: Asia/Seoul
   data:
     redis:
-      host: ENC(XAMM6J374+ObwFZ0+j+eYcaVzqjoiLW/)
+      host: ENC(yjPGZuwAsZazfN9YsO8PFqHphetNYjEA)
       port: 6379
   security:
     oauth2:
