@@ -17,4 +17,11 @@ public class AppointmentRoomGetService {
 
         return appointmentRoom;
     }
+
+    public AppointmentRoom findByRoomId(long roomId) {
+        AppointmentRoom appointmentRoom = appointmentRoomRepository.findById(roomId).orElseThrow(
+                AppointmentRoomNotFoundException::new);
+
+        return appointmentRoom;
+    }
 }

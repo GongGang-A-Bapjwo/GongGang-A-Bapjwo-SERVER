@@ -71,4 +71,8 @@ public class AppointmentParticipant extends BaseTimeEntity {
 			.hasLeft(hasLeft)
 			.build();
 	}
+
+	public void disable() {
+		this.hasLeft = true;
+	}
 }
