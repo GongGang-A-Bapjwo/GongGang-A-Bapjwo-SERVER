@@ -1,11 +1,12 @@
 package com.example.gonggang.domain.free_time.api;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.gonggang.domain.free_time.dto.response.ImageUploadResponse;
+import com.example.gonggang.domain.free_time.dto.response.FreeTimeResponse;
 import com.example.gonggang.global.auth.annotation.CurrentMember;
 import com.example.gonggang.global.config.error.ErrorResponse;
 
@@ -19,7 +20,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "FreeTime", description = "공강 관련 API")
 public interface FreeTimeApi {
 
-	@Operation(summary = "유저의 이미지 업로드", description = "사용자가 자신의 이미지를 업로드하는 API입니다. 이미지는 S3에 저장되고, 해당 이미지 URL이 반환됩니다.")
+	@Operation(summary = "이미지를 처리하고 공강 시간을 반환 및 저장하는 POST API", description = "사용자가 자신의 이미지를 업로드하면 해당 이미지에서 공강 시간을 추출해서 저장 및 반환하는 API 입니다.")
 	@ApiResponses(
 		value = {
 			@ApiResponse(
@@ -48,7 +49,7 @@ public interface FreeTimeApi {
 			)
 		}
 	)
-	ResponseEntity<ImageUploadResponse> uploadFreeTimeImage(
+	ResponseEntity<List<FreeTimeResponse>> processFreeTimeImage(
 		@CurrentMember Long memberId,
 		@RequestPart("file") MultipartFile file
 	);
