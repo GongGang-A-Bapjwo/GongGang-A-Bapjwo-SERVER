@@ -16,7 +16,7 @@ spring:
           time_zone: Asia/Seoul
   data:
     redis:
-      host: ENC(XAMM6J374+ObwFZ0+j+eYcaVzqjoiLW/)
+      host: ENC(yjPGZuwAsZazfN9YsO8PFqHphetNYjEA)
       port: 6379
   security:
     oauth2:
@@ -25,7 +25,7 @@ spring:
           kakao:
             client-id: ENC(97Dd6ms+JA/E9GuNdnceezMHrJt1y1JopdfSje5q44Ax8bqvnTPJEqtPUk3X6q3U)
             client-secret: ENC(gey7e14CRpmo9hN7REH2rQokfOgVk1VaoELUhdRoR9XdpV9nW92n771302ckEYud)
-            redirect-uri: ENC(dqsfPhntrRwFVkHXL2CedLcWwQW4jtILcTe1adahjwnKji+quxKi8GihvPZVv7vp187yY+/Sf+kUGQJ8+SOzVw==)
+            redirect-uri: ENC(p7NajOTDR5Q1osQWY+p/d3qrte8LIeWf4DsWH/dgxdhrA6zJrjdRvvq9+gVHSfNzU39beZisdRc=)
             client-authentication-method: POST
             authorization-grant-type: authorization_code
             scope: profile_nickname, account_email
@@ -52,9 +52,9 @@ jwt:
 
 app:
   server:
-    url: ENC(OqXzdllHjTlA0R8KgCf1VkFvbWOlb9OtjmqEofP/rrUMk2QFH0uZsg==)
+    url: ENC(mZMq0FTVxHm3sBzz0xLDYEyaweHVXmZ8bOMxFFKZ3ogqxJkUi80wzw==)
   fast-api:
     url: ${FAST_API_URL}
 
 cors:
-  allowed-origins: ENC(1cU+Mpg3zzzXFDwuibpDQ4ctFviqp4in6mrEHmEBsT7Wam1JdTvoq2r1fk1Bkt9AsyZIkRXpHQWTNSmEFZt19RzR1xIAuVXhO8DAtblfV78l/jqrOtbKPQ==)
+  allowed-origins: ENC(nOu56HopKUhwbh8ugTr5JXAUXcf7x0TTemI8tjOIcQJuy4yxkObzgQK6BR3oZfBPT7VClQt7F2HCTbEuS1eOjUPmTG+gWkANilW/aQQTXvBWH4kMMEb7ZSEkXLBQPpW0fyETGy23onAjyiDfEIb+5g==)

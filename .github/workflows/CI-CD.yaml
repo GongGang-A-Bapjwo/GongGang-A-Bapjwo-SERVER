@@ -53,11 +53,12 @@ jobs:
           push: true
           tags: ${{secrets.DOCKER_USERNAME}}/gonggangbe:latest
 
-      - name: Deploy
+      - name: Docker Deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{secrets.HOST}}
           username: ${{secrets.USERNAME}}
           key: ${{secrets.KEY}}
           script: |
+            sudo docker pull ${{secrets.DOCKER_USERNAME}}/gonggangbe:latest
             sudo ~/deploy.sh
