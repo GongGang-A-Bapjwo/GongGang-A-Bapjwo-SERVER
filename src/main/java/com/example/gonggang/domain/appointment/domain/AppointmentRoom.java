@@ -123,4 +123,12 @@ public class AppointmentRoom extends BaseTimeEntity {
 	public boolean isAvailable() {
 		return this.maxParticipants >= this.currentParticipants + 1;
 	}
+
+	public void minusCurrentParticipants() {
+		this.currentParticipants -= 1;
+	}
+
+	public void plusCurrentParticipants() {
+		this.currentParticipants += 1;
+	}
 }
