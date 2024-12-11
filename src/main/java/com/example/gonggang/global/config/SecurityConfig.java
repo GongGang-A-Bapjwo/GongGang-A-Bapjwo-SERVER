@@ -30,6 +30,7 @@ public class SecurityConfig {
 		"/api/users/sign-up",
 		"/api/admin/test-sign-up",
 		"/api/admin/login",
+		"/api/admin/health-check",
 		"/error",
 		"/"
 	};

@@ -25,7 +25,7 @@ spring:
           kakao:
             client-id: ENC(97Dd6ms+JA/E9GuNdnceezMHrJt1y1JopdfSje5q44Ax8bqvnTPJEqtPUk3X6q3U)
             client-secret: ENC(gey7e14CRpmo9hN7REH2rQokfOgVk1VaoELUhdRoR9XdpV9nW92n771302ckEYud)
-            redirect-uri: ENC(eNtvCqwsj8HJMyfyV7DAXMBT8J91DjuuVZC/zHnXDUMjss1gWiTSpuX73C2rgEeIO+3AgHa+kVhudZmsUUF0Mw==)
+            redirect-uri: ENC(dqsfPhntrRwFVkHXL2CedLcWwQW4jtILcTe1adahjwnKji+quxKi8GihvPZVv7vp187yY+/Sf+kUGQJ8+SOzVw==)
             client-authentication-method: POST
             authorization-grant-type: authorization_code
             scope: profile_nickname, account_email
@@ -55,4 +55,4 @@ app:
     url: ENC(OqXzdllHjTlA0R8KgCf1VkFvbWOlb9OtjmqEofP/rrUMk2QFH0uZsg==)
 
 cors:
-  allowed-origins: ENC(NtYdh5s8/uGJWP5KCdsCNR5b6c3rDlHuCToQHMIlT0VJO0APfmZYBnw7Sl66LyS3aY3oR24GSh0=)
+  allowed-origins: ENC(1cU+Mpg3zzzXFDwuibpDQ4ctFviqp4in6mrEHmEBsT7Wam1JdTvoq2r1fk1Bkt9AsyZIkRXpHQWTNSmEFZt19RzR1xIAuVXhO8DAtblfV78l/jqrOtbKPQ==)
