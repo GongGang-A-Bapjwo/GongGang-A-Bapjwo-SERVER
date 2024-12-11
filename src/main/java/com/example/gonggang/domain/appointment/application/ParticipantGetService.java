@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 public class ParticipantGetService {
     private final AppointmentParticipantRepository appointmentParticipantRepository;
 
-    public boolean checkAlreadyEntered(Users users, AppointmentRoom appointmentRoom) {
-        return appointmentParticipantRepository.existsByParticipantAndAppointmentRoom(users, appointmentRoom);
+    public boolean checkAlreadyEntered(Users user, AppointmentRoom appointmentRoom) {
+        return appointmentParticipantRepository.existsByParticipantAndAppointmentRoom(user, appointmentRoom);
     }
 
     public List<AppointmentParticipant> findAllByParticipants(Users user) {
