@@ -53,6 +53,8 @@ jwt:
 app:
   server:
     url: ENC(OqXzdllHjTlA0R8KgCf1VkFvbWOlb9OtjmqEofP/rrUMk2QFH0uZsg==)
+  fast-api:
+    url: ${FAST_API_URL}
 
 cors:
   allowed-origins: ENC(1cU+Mpg3zzzXFDwuibpDQ4ctFviqp4in6mrEHmEBsT7Wam1JdTvoq2r1fk1Bkt9AsyZIkRXpHQWTNSmEFZt19RzR1xIAuVXhO8DAtblfV78l/jqrOtbKPQ==)
