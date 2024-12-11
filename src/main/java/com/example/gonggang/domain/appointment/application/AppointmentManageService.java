@@ -87,7 +87,7 @@ public class AppointmentManageService {
                             room.getDecidedWeekday()
                     );
                 })
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Transactional
