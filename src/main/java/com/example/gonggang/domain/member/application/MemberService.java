@@ -1,5 +1,7 @@
 package com.example.gonggang.domain.member.application;
 
+import java.util.List;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,13 +36,13 @@ public class MemberService {
 	@Transactional(readOnly = true)
 	public Member findMemberBySocialIdAndSocialType(final Long socialId, final SocialType socialType) {
 		return memberRepository.findBySocialTypeAndSocialId(socialId, socialType)
-			.orElseThrow(MemberNotFoundExcepption::new);
+				.orElseThrow(MemberNotFoundExcepption::new);
 	}
 
 	@Transactional
 	public void deleteUser(final Long id) {
 		Users users = userRepository.findById(id)
-			.orElseThrow(MemberNotFoundExcepption::new);
+				.orElseThrow(MemberNotFoundExcepption::new);
 
 		userRepository.delete(users);
 	}
@@ -48,5 +50,10 @@ public class MemberService {
 	@Transactional
 	public Member saveMember(Member member) {
 		return memberRepository.save(member);
+	}
+
+	@Transactional(readOnly = true)
+	public List<Member> findAll() {
+		return memberRepository.findAll();
 	}
 }

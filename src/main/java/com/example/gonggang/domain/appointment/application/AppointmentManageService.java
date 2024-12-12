@@ -5,13 +5,14 @@ import com.example.gonggang.domain.appointment.domain.AppointmentRoom;
 import com.example.gonggang.domain.appointment.dto.request.AppointmentCreateRequest;
 import com.example.gonggang.domain.appointment.dto.request.AppointmentEnterRequest;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentCreateResponse;
+import com.example.gonggang.domain.appointment.dto.response.AppointmentRemainingResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentsGetResponse;
+import com.example.gonggang.domain.appointment.exception.AccessDeniedException;
 import com.example.gonggang.domain.appointment.exception.AlreadyEnteredException;
 import com.example.gonggang.domain.appointment.exception.AppointmentRoomMaxAppointmentException;
 import com.example.gonggang.domain.users.domain.Users;
 import com.example.gonggang.domain.users.service.UserGetService;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,7 +53,7 @@ public class AppointmentManageService {
         AppointmentRoom appointmentRoom = appointmentRoomGetService.findByEnteranceCode(
                 appointmentEnterRequest.entranceCode());
 
-        checkAvailable(appointmentRoom,user);
+        checkAvailable(appointmentRoom, user);
 
         AppointmentParticipant appointmentParticipant = AppointmentParticipant.create(user, appointmentRoom, false,
                 false);
@@ -104,5 +105,26 @@ public class AppointmentManageService {
         room.minusCurrentParticipants();
         appointmentParticipant.disable();
 
+    }
+
+    @Transactional(readOnly = true)
+    public AppointmentRemainingResponse read(Long userId, Long roomId) {
+        Users user = userGetService.findByMemberId(userId);
+        AppointmentParticipant appointmentParticipant = participantGetService.findByParticipantAndRoom(user,
+                roomId);
+        AppointmentRoom room = appointmentParticipant.getAppointmentRoom();
+        return AppointmentRemainingResponse.toResponse(room);
+    }
+
+    @Transactional
+    public void update(Long userId, Long roomId, AppointmentCreateRequest request) {
+        Users user = userGetService.findByMemberId(userId);
+        AppointmentParticipant appointmentParticipant = participantGetService.findByParticipantAndRoom(user,
+                roomId);
+        if (!appointmentParticipant.isOwner()) {
+            throw new AccessDeniedException();
+        }
+        AppointmentRoom room = appointmentParticipant.getAppointmentRoom();
+        room.updateFromDto(request);
     }
 }

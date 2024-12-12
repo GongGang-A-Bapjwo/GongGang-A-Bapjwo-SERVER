@@ -20,6 +20,7 @@ public enum ErrorCode {
 	INVALID_OUTPUT_LIST(400, "INVALID_OUTPUT_LIST", "출력값이 리스트 형식이 아닙니다."),
 	EMPTY_OUTPUT_LIST(400, "EMPTY_OUTPUT_LIST", "출력값이 비어있는 리스트입니다."),
 	INVALID_OUTPUT_FIRST_ELEMENT(400, "INVALID_OUTPUT_FIRST_ELEMENT", "출력값의 첫 번째 요소가 Map 형식이 아닙니다."),
+	OVER_VALUE(400, "OVER_VALUE", "현재 참여하고 있는 인원 수 보다 적게 설정할 수 없습니다"),
 
 	/* 401 */
 	AUTHENTICATION_CODE_EXPIRED(401, "AUTHENTICATION_CODE_EXPIRED", "인가코드가 만료되었습니다"),
