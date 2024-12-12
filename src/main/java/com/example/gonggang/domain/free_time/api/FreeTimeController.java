@@ -1,5 +1,7 @@
 package com.example.gonggang.domain.free_time.api;
 
+import com.example.gonggang.domain.free_time.dto.request.FreeTimeRequest;
+import com.example.gonggang.global.config.success.SuccessCode;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,5 +49,11 @@ public class FreeTimeController implements FreeTimeApi {
 
 		return ResponseEntity.status(HttpStatus.CREATED)
 			.body(freeTimes);
+	}
+
+	@PostMapping("/set-freetime")
+	public ResponseEntity<String> create(@CurrentMember Long userId, @RequestBody FreeTimeRequest freeTimeRequest) {
+		freeTimeSaveService.create(userId, freeTimeRequest);
+		return ResponseEntity.ok(SuccessCode.CREATE_SUCCESS.getMessage());
 	}
 }
