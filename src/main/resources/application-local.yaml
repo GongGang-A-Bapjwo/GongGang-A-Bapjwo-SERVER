@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: ENC(P/y/en3B7l6XZ4lT6vFm/jotRCGAYHdbcoezdhOzSZbqreb3YsW+ndqPBeXkyhnULD9K4Ql7kqdmYAa1S+mvUXShjmK7IasJFcc9TseoWJL+a9kigKs0wg==)
-    username: ENC(AoCeej33qfheUlcxWWBiQA==)
-    password: ENC(elKaMQowOytkUTRG2gPA0VpmFZAJjO39)
-    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:mysql://localhost:3306/gonggang
+    username:
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     generate-ddl: true
     show-sql: false
