@@ -122,4 +122,14 @@ public class FreeTimeSaveService {
 
 		freeTimeRepository.saveAll(freeTimes);
 	}
+
+	public void update(Long userId, FreeTimeRequest request) {
+		Users user = userGetService.findByMemberId(userId);
+		List<FreeTimeRequestItem> requestItems = request.freeTimeRequestItems();
+		List<FreeTime> freeTimes = requestItems.stream().map(item->
+				FreeTime.create(LocalTime.parse(item.startTime()),LocalTime.parse(item.endTime()),Weekday.fromKorean(item.weekday()),user)
+		).toList();
+
+		freeTimeRepository.saveAll(freeTimes);
+	}
 }
