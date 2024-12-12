@@ -16,8 +16,8 @@ public record FreeTimeAllResponse(
                         weekday,
                         freeTimeMap.getOrDefault(weekday, List.of()).stream()
                                 .map(FreeTimeItem::of)
-                                .collect(Collectors.toList())
+                                .toList()
                 ))
-                .collect(Collectors.toList());
+                .toList();
     }
 }
