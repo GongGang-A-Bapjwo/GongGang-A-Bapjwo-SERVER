@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -61,8 +62,14 @@ public class FreeTimeController implements FreeTimeApi {
 		return ResponseEntity.ok(SuccessCode.CREATE_SUCCESS.getMessage());
 	}
 
+	@PutMapping("/set-freetime")
+	public ResponseEntity<String> update(@CurrentMember Long userId, @RequestBody FreeTimeRequest freeTimeRequest) {
+		freeTimeSaveService.update(userId, freeTimeRequest);
+		return ResponseEntity.ok(SuccessCode.UPDATE_SUCCESS.getMessage());
+	}
+
 	@GetMapping("/info")
-	public ResponseEntity<List<FreeTimeAllResponse>>	 read(@CurrentMember Long userId) {
+	public ResponseEntity<List<FreeTimeAllResponse>> read(@CurrentMember Long userId) {
 		List<FreeTimeAllResponse> response = freeTimeManageService.readAll(userId);
 		return ResponseEntity.ok(response);
 	}
