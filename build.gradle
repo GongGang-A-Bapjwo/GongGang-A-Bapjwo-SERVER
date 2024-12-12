@@ -28,6 +28,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
     // OAuth2
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
@@ -42,11 +43,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
 
-    // Oracle DB
-    runtimeOnly 'com.oracle.database.jdbc:ojdbc11:23.6.0.24.10'
-    implementation 'com.oracle.database.security:oraclepki:23.6.0.24.10'
-    implementation 'com.oracle.database.security:osdt_cert:21.16.0.0'
-    implementation 'com.oracle.database.security:osdt_core:21.16.0.0'
+    // MySQL
+    runtimeOnly 'com.mysql:mysql-connector-j'
 
     // Lombok
     compileOnly 'org.projectlombok:lombok'
@@ -64,6 +62,9 @@ dependencies {
 
     // External API
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.2.0'
+
+    // Prometheus
+    implementation 'io.micrometer:micrometer-registry-prometheus:1.14.2'
 
     // Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
