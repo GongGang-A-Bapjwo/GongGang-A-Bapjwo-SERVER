@@ -16,4 +16,8 @@ public class FreeTimeGetService {
     public List<FreeTime> findAllByUserAndWeekDay(Users user, Weekday weekday) {
         return freeTimeRepository.findAllByUserAndWeekday(user, weekday);
     }
+
+    public List<FreeTime> findAllByUser(Users user) {
+        return freeTimeRepository.findAllByUser(user);
+    }
 }

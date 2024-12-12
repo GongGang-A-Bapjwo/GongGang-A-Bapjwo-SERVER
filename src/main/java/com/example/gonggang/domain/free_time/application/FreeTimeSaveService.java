@@ -27,6 +27,7 @@ public class FreeTimeSaveService {
 
 	private final FreeTimeRepository freeTimeRepository;
 	private final UserGetService userGetService;
+	private final FreeTimeGetService freeTimeGetService;
 
 	public List<FreeTimeResponse> saveFreeTimes(Map<String, Object> fastApiResponse) {
 		String memberIdStr = (String) fastApiResponse.get("user_name");
@@ -125,11 +126,15 @@ public class FreeTimeSaveService {
 
 	public void update(Long userId, FreeTimeRequest request) {
 		Users user = userGetService.findByMemberId(userId);
+
+		List<FreeTime> freeTimes = freeTimeGetService.findAllByUser(user);
+		freeTimeRepository.deleteAll(freeTimes);
+
 		List<FreeTimeRequestItem> requestItems = request.freeTimeRequestItems();
-		List<FreeTime> freeTimes = requestItems.stream().map(item->
+		List<FreeTime> newFreeTimes = requestItems.stream().map(item->
 				FreeTime.create(LocalTime.parse(item.startTime()),LocalTime.parse(item.endTime()),Weekday.fromKorean(item.weekday()),user)
 		).toList();
 
-		freeTimeRepository.saveAll(freeTimes);
+		freeTimeRepository.saveAll(newFreeTimes);
 	}
 }

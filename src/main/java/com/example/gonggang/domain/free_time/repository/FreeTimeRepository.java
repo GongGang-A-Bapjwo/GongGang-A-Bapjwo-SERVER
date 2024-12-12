@@ -13,4 +13,6 @@ public interface FreeTimeRepository extends JpaRepository<FreeTime, Long> {
 
     @Query("SELECT f FROM FreeTime f WHERE f.user = :user AND f.weekday = :weekday")
     List<FreeTime> findAllByUserAndWeekday(@Param("user") Users user, @Param("weekday") Weekday weekday);
+
+    List<FreeTime> findAllByUser(Users user);
 }
