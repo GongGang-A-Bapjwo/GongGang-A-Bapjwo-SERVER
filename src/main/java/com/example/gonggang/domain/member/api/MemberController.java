@@ -1,6 +1,5 @@
 package com.example.gonggang.domain.member.api;
 
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,8 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class MemberController implements MemberApi {
-	private static final int COOKIE_MAX_AGE = 7 * 24 * 60 * 60;
-	private static final String REFRESH_TOKEN = "refreshToken";
+
 	private final TokenService tokenService;
 	private final AuthenticationService authenticationService;
 	private final SocialLoginService socialLoginService;
@@ -41,17 +39,7 @@ public class MemberController implements MemberApi {
 	) {
 		LoginSuccessResponse loginSuccessResponse = socialLoginService.handleSocialLogin(authorizationCode,
 			loginRequest);
-		ResponseCookie cookie = ResponseCookie.from(REFRESH_TOKEN, loginSuccessResponse.refreshToken())
-			.maxAge(COOKIE_MAX_AGE)
-			.path("/")
-			.secure(true)
-			.sameSite("None")
-			.httpOnly(true)
-			.build();
-		response.setHeader("Set-Cookie", cookie.toString());
-		return ResponseEntity.ok()
-			.body(LoginSuccessResponse.of(loginSuccessResponse.accessToken(), null, loginSuccessResponse.nickname(),
-				loginSuccessResponse.role()));
+		return ResponseEntity.ok().body(loginSuccessResponse);
 	}
 
 	@Override
