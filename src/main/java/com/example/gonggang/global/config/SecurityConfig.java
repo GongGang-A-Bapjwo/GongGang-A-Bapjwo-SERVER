@@ -1,5 +1,6 @@
 package com.example.gonggang.global.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,6 +24,9 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 public class SecurityConfig {
 
+	@Value("${management.endpoint.endpoints.web.base-path}")
+	private static String ACTUATOR_END_POINT;
+
 	private static final String[] AUTH_WHITELIST = {
 		"/v3/api-docs/**",
 		"/swagger-ui/**",
@@ -31,6 +35,7 @@ public class SecurityConfig {
 		"/api/admin/test-sign-up",
 		"/api/admin/login",
 		"/api/admin/health-check",
+		ACTUATOR_END_POINT + "/**",
 		"/error",
 		"/"
 	};
