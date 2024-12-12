@@ -6,6 +6,7 @@ import com.example.gonggang.domain.appointment.application.AppointmentManageServ
 import com.example.gonggang.domain.appointment.dto.request.AppointmentCreateRequest;
 import com.example.gonggang.domain.appointment.dto.request.AppointmentEnterRequest;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentCreateResponse;
+import com.example.gonggang.domain.appointment.dto.response.AppointmentRemainingResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentsGetResponse;
 import com.example.gonggang.global.auth.annotation.CurrentMember;
 import java.util.List;
@@ -49,5 +50,11 @@ public class AppointmentController {
     public ResponseEntity<String> delete(@CurrentMember Long userId, @PathVariable Long roomId) {
         appointmentManageService.delete(userId,roomId);
         return ResponseEntity.ok("성공");
+    }
+
+    @GetMapping("/remaining-count/{roomId}")
+    public ResponseEntity<AppointmentRemainingResponse> read(@CurrentMember Long userId, @PathVariable Long roomId) {
+        AppointmentRemainingResponse response = appointmentManageService.read(userId, roomId);
+        return ResponseEntity.ok(response);
     }
 }
