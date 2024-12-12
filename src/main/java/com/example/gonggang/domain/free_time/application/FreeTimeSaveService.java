@@ -1,5 +1,7 @@
 package com.example.gonggang.domain.free_time.application;
 
+import com.example.gonggang.domain.free_time.dto.request.FreeTimeRequest;
+import com.example.gonggang.domain.free_time.dto.request.FreeTimeRequestItem;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,7 @@ public class FreeTimeSaveService {
 
 	private final FreeTimeRepository freeTimeRepository;
 	private final UserGetService userGetService;
+	private final FreeTimeGetService freeTimeGetService;
 
 	public List<FreeTimeResponse> saveFreeTimes(Map<String, Object> fastApiResponse) {
 		String memberIdStr = (String) fastApiResponse.get("user_name");
@@ -109,5 +112,29 @@ public class FreeTimeSaveService {
 				freeTime.getUser().getId()
 			))
 			.toList();
+	}
+
+	public void create(Long userId, FreeTimeRequest request) {
+		Users user = userGetService.findByMemberId(userId);
+		List<FreeTimeRequestItem> requestItems = request.freeTimeRequestItems();
+		List<FreeTime> freeTimes = requestItems.stream().map(item->
+				FreeTime.create(LocalTime.parse(item.startTime()),LocalTime.parse(item.endTime()),item.weekday(),user)
+		).toList();
+
+		freeTimeRepository.saveAll(freeTimes);
+	}
+
+	public void update(Long userId, FreeTimeRequest request) {
+		Users user = userGetService.findByMemberId(userId);
+
+		List<FreeTime> freeTimes = freeTimeGetService.findAllByUser(user);
+		freeTimeRepository.deleteAll(freeTimes);
+
+		List<FreeTimeRequestItem> requestItems = request.freeTimeRequestItems();
+		List<FreeTime> newFreeTimes = requestItems.stream().map(item->
+				FreeTime.create(LocalTime.parse(item.startTime()),LocalTime.parse(item.endTime()),item.weekday(),user)
+		).toList();
+
+		freeTimeRepository.saveAll(newFreeTimes);
 	}
 }

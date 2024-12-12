@@ -1,12 +1,19 @@
 package com.example.gonggang.domain.free_time.api;
 
+import com.example.gonggang.domain.free_time.application.FreeTimeManageService;
+import com.example.gonggang.domain.free_time.dto.request.FreeTimeRequest;
+import com.example.gonggang.domain.free_time.dto.response.FreeTimeAllResponse;
+import com.example.gonggang.global.config.success.SuccessCode;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +36,7 @@ public class FreeTimeController implements FreeTimeApi {
 	private final FreeTimeImageService freeTimeImageService;
 	private final FastApiService fastApiService;
 	private final FreeTimeSaveService freeTimeSaveService;
+	private final FreeTimeManageService freeTimeManageService;
 
 	@Override
 	@PostMapping(value = "/process-image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -46,5 +54,23 @@ public class FreeTimeController implements FreeTimeApi {
 
 		return ResponseEntity.status(HttpStatus.CREATED)
 			.body(freeTimes);
+	}
+
+	@PostMapping("/set-freetime")
+	public ResponseEntity<String> create(@CurrentMember Long userId, @RequestBody FreeTimeRequest freeTimeRequest) {
+		freeTimeSaveService.create(userId, freeTimeRequest);
+		return ResponseEntity.ok(SuccessCode.CREATE_SUCCESS.getMessage());
+	}
+
+	@PutMapping("/set-freetime")
+	public ResponseEntity<String> update(@CurrentMember Long userId, @RequestBody FreeTimeRequest freeTimeRequest) {
+		freeTimeSaveService.update(userId, freeTimeRequest);
+		return ResponseEntity.ok(SuccessCode.UPDATE_SUCCESS.getMessage());
+	}
+
+	@GetMapping("/info")
+	public ResponseEntity<List<FreeTimeAllResponse>> read(@CurrentMember Long userId) {
+		List<FreeTimeAllResponse> response = freeTimeManageService.readAll(userId);
+		return ResponseEntity.ok(response);
 	}
 }
