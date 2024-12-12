@@ -1,6 +1,7 @@
 package com.example.gonggang.domain.appointment.domain;
 
 import com.example.gonggang.domain.appointment.dto.request.AppointmentCreateRequest;
+import com.example.gonggang.domain.appointment.exception.OverThanCurrentUserException;
 import java.time.LocalTime;
 
 import com.example.gonggang.domain.common.BaseTimeEntity;
@@ -134,8 +135,15 @@ public class AppointmentRoom extends BaseTimeEntity {
 	}
 
 	public void updateFromDto(AppointmentCreateRequest request) {
+		checkMaxParticipant(this.currentParticipants, request.maxParticipants());
 		this.maxParticipants = request.maxParticipants();
 		this.category = request.category();
 		this.title = request.title();
+	}
+
+	private void checkMaxParticipant(int current, int target) {
+		if (current > target) {
+			throw new OverThanCurrentUserException();
+		}
 	}
 }
