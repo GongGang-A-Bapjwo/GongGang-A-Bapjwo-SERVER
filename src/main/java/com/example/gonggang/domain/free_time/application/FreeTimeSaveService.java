@@ -118,7 +118,7 @@ public class FreeTimeSaveService {
 		Users user = userGetService.findByMemberId(userId);
 		List<FreeTimeRequestItem> requestItems = request.freeTimeRequestItems();
 		List<FreeTime> freeTimes = requestItems.stream().map(item->
-				FreeTime.create(LocalTime.parse(item.startTime()),LocalTime.parse(item.endTime()),Weekday.fromKorean(item.weekday()),user)
+				FreeTime.create(LocalTime.parse(item.startTime()),LocalTime.parse(item.endTime()),item.weekday(),user)
 		).toList();
 
 		freeTimeRepository.saveAll(freeTimes);
@@ -132,7 +132,7 @@ public class FreeTimeSaveService {
 
 		List<FreeTimeRequestItem> requestItems = request.freeTimeRequestItems();
 		List<FreeTime> newFreeTimes = requestItems.stream().map(item->
-				FreeTime.create(LocalTime.parse(item.startTime()),LocalTime.parse(item.endTime()),Weekday.fromKorean(item.weekday()),user)
+				FreeTime.create(LocalTime.parse(item.startTime()),LocalTime.parse(item.endTime()),item.weekday(),user)
 		).toList();
 
 		freeTimeRepository.saveAll(newFreeTimes);
