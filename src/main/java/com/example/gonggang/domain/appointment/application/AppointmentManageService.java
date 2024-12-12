@@ -1,17 +1,24 @@
 package com.example.gonggang.domain.appointment.application;
 
+import com.example.gonggang.domain.appointment.domain.AppointmentBoard;
 import com.example.gonggang.domain.appointment.domain.AppointmentParticipant;
 import com.example.gonggang.domain.appointment.domain.AppointmentRoom;
 import com.example.gonggang.domain.appointment.dto.request.AppointmentCreateRequest;
 import com.example.gonggang.domain.appointment.dto.request.AppointmentEnterRequest;
+import com.example.gonggang.domain.appointment.dto.response.AppointmentAllResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentCreateResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentRemainingResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentsGetResponse;
 import com.example.gonggang.domain.appointment.exception.AccessDeniedException;
 import com.example.gonggang.domain.appointment.exception.AlreadyEnteredException;
 import com.example.gonggang.domain.appointment.exception.AppointmentRoomMaxAppointmentException;
+import com.example.gonggang.domain.common.Weekday;
+import com.example.gonggang.domain.free_time.application.FreeTimeGetService;
+import com.example.gonggang.domain.free_time.domain.FreeTime;
+import com.example.gonggang.domain.free_time.dto.response.FreeTimeItem;
 import com.example.gonggang.domain.users.domain.Users;
 import com.example.gonggang.domain.users.service.UserGetService;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,6 +33,8 @@ public class AppointmentManageService {
     private final AppointmentRoomGetService appointmentRoomGetService;
     private final ParticipantGetService participantGetService;
     private final AppointmentRoomDeleteService appointmentRoomDeleteService;
+    private final FreeTimeGetService freeTimeGetService;
+    private final AppointmentBoardGetService appointmentBoardGetService;
 
     @Transactional
     public AppointmentCreateResponse create(Long userId, AppointmentCreateRequest appointmentCreateRequest) {
@@ -126,5 +135,21 @@ public class AppointmentManageService {
         }
         AppointmentRoom room = appointmentParticipant.getAppointmentRoom();
         room.updateFromDto(request);
+    }
+
+    @Transactional(readOnly = true)
+    public AppointmentAllResponse read(Long userId) {
+        LocalDateTime now = LocalDateTime.now();
+        Weekday weekDay = Weekday.fromEnglish(now.getDayOfWeek().toString());
+        Users user = userGetService.findByMemberId(userId);
+
+        List<FreeTime> freeTimes = freeTimeGetService.findAllByUserAndWeekDay(user,weekDay);
+        List<FreeTimeItem> freeTimeItems = freeTimes.stream().map(FreeTimeItem::of).toList();
+
+        List<List<AppointmentBoard>> appointmentBoards = freeTimes.stream()
+                .map(appointmentBoardGetService::findAllBoard)
+                .toList();
+
+        return AppointmentAllResponse.toResponse(weekDay.getValue(), freeTimeItems, appointmentBoards);
     }
 }

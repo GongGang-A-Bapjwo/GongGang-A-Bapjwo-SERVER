@@ -26,4 +26,8 @@ public enum Weekday {
 		}
 		throw new InvalidWeekdayException();
 	}
+
+	public static Weekday fromEnglish(String englishDay) {
+			return Weekday.valueOf(englishDay.toUpperCase());
+	}
 }
