@@ -59,7 +59,7 @@ app:
     url: ${FAST_API_URL}
 
 cors:
-  allowed-origins: ENC(Zy+qN7ou2atna0/wHFfkhA==)
+  allowed-origins: ENC(1lSQMVd68WuQHqDOBUQnTmGOs6lUvXya4oahsNrSUZfYfi+L2iPIUZO7gcI6AYhBuIIw47Gs61l+a5Z6vpYJ3jlkdzI/27HrKu80NJopVrsF8kjJa4bzgfskxar6KDeC/QMh416PZrpMlWRvYM9CaT4k3GkvwcujQx3He47UX8EyaN77IzFFR3UlrywB1wrU7sNCPJbtupdF/xexS2CCybDQ/jmB3xz/HdnGy3aYFbVZxNovBNFSlQ==)
 
 management:
   endpoints:
