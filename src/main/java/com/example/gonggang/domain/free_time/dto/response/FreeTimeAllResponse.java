@@ -7,13 +7,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public record FreeTimeAllResponse(
-        String weekday,
+        Weekday weekday,
         List<FreeTimeItem> freeTimeItems
 ) {
     public static List<FreeTimeAllResponse> from(Map<Weekday, List<FreeTime>> freeTimeMap) {
         return List.of(Weekday.values()).stream()
                 .map(weekday -> new FreeTimeAllResponse(
-                        weekday.getValue(),
+                        weekday,
                         freeTimeMap.getOrDefault(weekday, List.of()).stream()
                                 .map(FreeTimeItem::of)
                                 .collect(Collectors.toList())
