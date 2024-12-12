@@ -1,5 +1,7 @@
 package com.example.gonggang.domain.free_time.application;
 
+import com.example.gonggang.domain.free_time.dto.request.FreeTimeRequest;
+import com.example.gonggang.domain.free_time.dto.request.FreeTimeRequestItem;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -109,5 +111,15 @@ public class FreeTimeSaveService {
 				freeTime.getUser().getId()
 			))
 			.toList();
+	}
+
+	public void create(Long userId, FreeTimeRequest request) {
+		Users user = userGetService.findByMemberId(userId);
+		List<FreeTimeRequestItem> requestItems = request.freeTimeRequestItems();
+		List<FreeTime> freeTimes = requestItems.stream().map(item->
+				FreeTime.create(LocalTime.parse(item.startTime()),LocalTime.parse(item.endTime()),Weekday.fromKorean(item.weekday()),user)
+		).toList();
+
+		freeTimeRepository.saveAll(freeTimes);
 	}
 }
