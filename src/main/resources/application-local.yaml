@@ -53,6 +53,8 @@ jwt:
 app:
   server:
     url: http://localhost:8080
+  fast-api:
+    url: ${FAST_API_URL}
 
 cors:
   allowed-origins: ENC(qFgoWc/mLfAl4B4+z3uyoQfyZiosWFDrvlFaeYarOBhAZMOfzcKjLlEIKvhFbrIgM6wtwLBVX8c=)
