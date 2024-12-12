@@ -24,21 +24,24 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 public class SecurityConfig {
 
-	@Value("${management.endpoint.endpoints.web.base-path}")
-	private static String ACTUATOR_END_POINT;
+	@Value("${management.endpoints.web.base-path}")
+	private String actuatorEndPoint;
 
-	private static final String[] AUTH_WHITELIST = {
-		"/v3/api-docs/**",
-		"/swagger-ui/**",
-		"/swagger-resources/**",
-		"/api/users/sign-up",
-		"/api/admin/test-sign-up",
-		"/api/admin/login",
-		"/api/admin/health-check",
-		ACTUATOR_END_POINT + "/**",
-		"/error",
-		"/"
-	};
+	private String[] getAuthWhitelist() {
+		return new String[]{
+			"/v3/api-docs/**",
+			"/swagger-ui/**",
+			"/swagger-resources/**",
+			"/api/users/sign-up",
+			"/api/admin/test-sign-up",
+			"/api/admin/login",
+			"/api/admin/health-check",
+			actuatorEndPoint + "/**",
+			"/error",
+			"/"
+		};
+	}
+
 	private static final String[] AUTH_ADMIN_ONLY = {
 		"/api/admin/**"
 	};
@@ -63,7 +66,7 @@ public class SecurityConfig {
 					.accessDeniedHandler(customAccessDeniedHandler));
 
 		http.authorizeHttpRequests(auth ->
-				auth.requestMatchers(AUTH_WHITELIST).permitAll()
+				auth.requestMatchers(getAuthWhitelist()).permitAll()
 					.requestMatchers(AUTH_ADMIN_ONLY).hasAuthority(Role.ADMIN.getRoleName())
 					.anyRequest().authenticated())
 			.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

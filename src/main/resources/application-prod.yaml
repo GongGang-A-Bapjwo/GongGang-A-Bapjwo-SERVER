@@ -1,16 +1,16 @@
 spring:
   application:
-    name:GONGGANG-SERVER
+    name: GONGGANG-SERVER
   datasource:
-    url:
+    url: jdbc:mysql://localhost:3306/test
     username: root
-    password:
+    password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     generate-ddl: true
     show-sql: false
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
@@ -18,7 +18,7 @@ spring:
           time_zone: Asia/Seoul
   data:
     redis:
-      host: ENC(yjPGZuwAsZazfN9YsO8PFqHphetNYjEA)
+      host: localhost
       port: 6379
   security:
     oauth2:
@@ -62,6 +62,15 @@ cors:
   allowed-origins: ENC(nOu56HopKUhwbh8ugTr5JXAUXcf7x0TTemI8tjOIcQJuy4yxkObzgQK6BR3oZfBPT7VClQt7F2HCTbEuS1eOjUPmTG+gWkANilW/aQQTXvBWH4kMMEb7ZSEkXLBQPpW0fyETGy23onAjyiDfEIb+5g==)
 
 management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: health, info, metrics, prometheus
+      base-path: ENC(RW5QDK0Was92tPek+CXFrRfozpoxc30rWUWbpHW0qHm2pt6DhBr15Xj5FKaxZmpNvtoOB3GcN2Y=)
+    jmx:
+      exposure:
+        exclude: "*"
   endpoint:
     metrics:
       enabled: true
@@ -71,16 +80,6 @@ management:
       enabled: true
     health:
       enabled: true
-      show-details: when_authorized
-    endpoints:
-      enabled-by-default: false
-      web:
-        exposure:
-          include: health, info, metrics, prometheus
-        base-path: ENC(sdh1NTJuwT7yzJ3ssoRcyCYthwvZV4yMIjY1t1ULNqJrVb3y1fch/8o2eBLhNR1HN461/iZtqbg=)
-      jmx:
-        exposure:
-          exclude: "*"
   metrics:
     tags:
       application: ${spring.application.name}

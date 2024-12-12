@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/gonggang
-    username:
-    password:
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     generate-ddl: true
@@ -58,3 +58,26 @@ app:
 
 cors:
   allowed-origins: ENC(qFgoWc/mLfAl4B4+z3uyoQfyZiosWFDrvlFaeYarOBhAZMOfzcKjLlEIKvhFbrIgM6wtwLBVX8c=)
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: health, info, metrics, prometheus
+      base-path: ENC(RW5QDK0Was92tPek+CXFrRfozpoxc30rWUWbpHW0qHm2pt6DhBr15Xj5FKaxZmpNvtoOB3GcN2Y=)
+    jmx:
+      exposure:
+        exclude: "*"
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+    info:
+      enabled: true
+    health:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
