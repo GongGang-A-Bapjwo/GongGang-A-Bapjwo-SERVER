@@ -10,7 +10,7 @@ spring:
     generate-ddl: true
     show-sql: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     properties:
       hibernate:
         format_sql: true
@@ -59,7 +59,7 @@ app:
     url: ${FAST_API_URL}
 
 cors:
-  allowed-origins: ENC(eir3Q5zuqw7OnfKTkyFIMfWviLTdagvI8BNRoDpetU12FBlnzJPdDlxp0X+V22ShgV6kF1oH256F/NtX/gJ6IOLf4yvJqc9iB6VDUll4/r1ojLkQpffA9+MNujc8zpZaCp1qPpTkpjg8xeqiSw3QZfIg5hen7LIWs2kjzzFWCHO+5YA/ZXPt6dnFIS7Lm6n/JQISVWXkrP+MgITFoNoJ7w==)
+  allowed-origins: ENC(Zy+qN7ou2atna0/wHFfkhA==)
 
 management:
   endpoints:
