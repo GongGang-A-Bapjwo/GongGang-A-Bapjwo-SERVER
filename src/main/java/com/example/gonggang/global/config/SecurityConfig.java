@@ -1,5 +1,6 @@
 package com.example.gonggang.global.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,17 +24,24 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 public class SecurityConfig {
 
-	private static final String[] AUTH_WHITELIST = {
-		"/v3/api-docs/**",
-		"/swagger-ui/**",
-		"/swagger-resources/**",
-		"/api/users/sign-up",
-		"/api/admin/test-sign-up",
-		"/api/admin/login",
-		"/api/admin/health-check",
-		"/error",
-		"/"
-	};
+	@Value("${management.endpoints.web.base-path}")
+	private String actuatorEndPoint;
+
+	private String[] getAuthWhitelist() {
+		return new String[]{
+			"/v3/api-docs/**",
+			"/swagger-ui/**",
+			"/swagger-resources/**",
+			"/api/users/sign-up",
+			"/api/admin/test-sign-up",
+			"/api/admin/login",
+			"/api/admin/health-check",
+			actuatorEndPoint + "/**",
+			"/error",
+			"/"
+		};
+	}
+
 	private static final String[] AUTH_ADMIN_ONLY = {
 		"/api/admin/**"
 	};
@@ -58,7 +66,7 @@ public class SecurityConfig {
 					.accessDeniedHandler(customAccessDeniedHandler));
 
 		http.authorizeHttpRequests(auth ->
-				auth.requestMatchers(AUTH_WHITELIST).permitAll()
+				auth.requestMatchers(getAuthWhitelist()).permitAll()
 					.requestMatchers(AUTH_ADMIN_ONLY).hasAuthority(Role.ADMIN.getRoleName())
 					.anyRequest().authenticated())
 			.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

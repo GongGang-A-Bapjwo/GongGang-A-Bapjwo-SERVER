@@ -1,9 +1,11 @@
 spring:
+  application:
+    name: GONGGANG-SERVER
   datasource:
-    url: ENC(P/y/en3B7l6XZ4lT6vFm/jotRCGAYHdbcoezdhOzSZbqreb3YsW+ndqPBeXkyhnULD9K4Ql7kqdmYAa1S+mvUXShjmK7IasJFcc9TseoWJL+a9kigKs0wg==)
-    username: ENC(AoCeej33qfheUlcxWWBiQA==)
-    password: ENC(elKaMQowOytkUTRG2gPA0VpmFZAJjO39)
-    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:mysql://localhost:3306/gonggang
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     generate-ddl: true
     show-sql: false
@@ -58,3 +60,26 @@ app:
 
 cors:
   allowed-origins: ENC(qFgoWc/mLfAl4B4+z3uyoQfyZiosWFDrvlFaeYarOBhAZMOfzcKjLlEIKvhFbrIgM6wtwLBVX8c=)
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: health, info, metrics, prometheus
+      base-path: ENC(RW5QDK0Was92tPek+CXFrRfozpoxc30rWUWbpHW0qHm2pt6DhBr15Xj5FKaxZmpNvtoOB3GcN2Y=)
+    jmx:
+      exposure:
+        exclude: "*"
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+    info:
+      enabled: true
+    health:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}

@@ -1,14 +1,16 @@
 spring:
+  application:
+    name: GONGGANG-SERVER
   datasource:
-    url: ENC(3kLHK0nREngrnc7SKqEjpwr6erUktiIMOtV8nThJ6D0tMyXfGpujZrpZTaQAMz6t+aXfazgh/iHrtC+oAsFl9boxFfdKRx8V7fOkN5TmcFzQ1IwHU+Bb1g==)
-    username: ENC(PsHF+ccFKU1oUfIIMW5CQw==)
-    password: ENC(iyzkesbRcNNDIZQ3CAyEaSbHmODgarHw)
-    driver-class-name: oracle.jdbc.OracleDriver
+    url: ENC(Ai/NpESFYfeoSWDeD2ZC+kqVSzoXX/F59jDvapqK8lZ2FYVQDkailJOzZ3afW/bwVDRJR+YzMVk=)
+    username: ENC(YQ6vR9hA4ELUqbKswL0rUA==)
+    password: ENC(WODErBsIrO5OXODEbf09NZYw/Csvi968)
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     generate-ddl: true
     show-sql: false
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
@@ -57,4 +59,27 @@ app:
     url: ${FAST_API_URL}
 
 cors:
-  allowed-origins: ENC(nOu56HopKUhwbh8ugTr5JXAUXcf7x0TTemI8tjOIcQJuy4yxkObzgQK6BR3oZfBPT7VClQt7F2HCTbEuS1eOjUPmTG+gWkANilW/aQQTXvBWH4kMMEb7ZSEkXLBQPpW0fyETGy23onAjyiDfEIb+5g==)
+  allowed-origins: ENC(eir3Q5zuqw7OnfKTkyFIMfWviLTdagvI8BNRoDpetU12FBlnzJPdDlxp0X+V22ShgV6kF1oH256F/NtX/gJ6IOLf4yvJqc9iB6VDUll4/r1ojLkQpffA9+MNujc8zpZaCp1qPpTkpjg8xeqiSw3QZfIg5hen7LIWs2kjzzFWCHO+5YA/ZXPt6dnFIS7Lm6n/JQISVWXkrP+MgITFoNoJ7w==)
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: health, info, metrics, prometheus
+      base-path: ENC(RW5QDK0Was92tPek+CXFrRfozpoxc30rWUWbpHW0qHm2pt6DhBr15Xj5FKaxZmpNvtoOB3GcN2Y=)
+    jmx:
+      exposure:
+        exclude: "*"
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+    info:
+      enabled: true
+    health:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
