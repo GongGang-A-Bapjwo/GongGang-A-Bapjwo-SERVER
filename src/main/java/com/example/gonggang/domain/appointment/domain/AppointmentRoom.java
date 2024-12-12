@@ -1,5 +1,6 @@
 package com.example.gonggang.domain.appointment.domain;
 
+import com.example.gonggang.domain.appointment.dto.request.AppointmentCreateRequest;
 import java.time.LocalTime;
 
 import com.example.gonggang.domain.common.BaseTimeEntity;
@@ -130,5 +131,11 @@ public class AppointmentRoom extends BaseTimeEntity {
 
 	public void plusCurrentParticipants() {
 		this.currentParticipants += 1;
+	}
+
+	public void updateFromDto(AppointmentCreateRequest request) {
+		this.maxParticipants = request.maxParticipants();
+		this.category = request.category();
+		this.title = request.title();
 	}
 }
