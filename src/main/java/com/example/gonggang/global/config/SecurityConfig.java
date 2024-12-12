@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsUtils;
 
 import com.example.gonggang.domain.users.domain.Role;
 import com.example.gonggang.global.auth.jwt.filter.JwtAuthenticationFilter;
@@ -67,6 +68,7 @@ public class SecurityConfig {
 
 		http.authorizeHttpRequests(auth ->
 				auth.requestMatchers(getAuthWhitelist()).permitAll()
+					.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 					.requestMatchers(AUTH_ADMIN_ONLY).hasAuthority(Role.ADMIN.getRoleName())
 					.anyRequest().authenticated())
 			.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
