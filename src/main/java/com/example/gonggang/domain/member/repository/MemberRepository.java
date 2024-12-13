@@ -18,4 +18,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 		@Param("socialType") SocialType socialType);
 
 	List<Member> findAll();
+
+	Optional<Member> findByEmail(String email);
 }

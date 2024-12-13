@@ -37,6 +37,7 @@ public enum ErrorCode {
 	ADMIN_NOT_FOUND(404, "ADMIN_NOT_FOUND", "존재하지 않는 관리자입니다."),
 	REFRESH_TOKEN_NOT_FOUND(404, "REFRESH_TOKEN_NOT_FOUND", "리프레쉬 토큰이 존재하지 않습니다"),
 	PARTICIPANT_NOT_FOUND(404,"PARTICIPANT_NOT_FOUND","참가자가 존재하지 않습니다"),
+	BOARD_NOT_FOUND(404,"BOARD_NOT_FOUND","채팅방이 존재하지 않습니다"),
 
 	/* 500 */
 	INTERNAL_SERVER_ERROR(500, "INTERNAL_SERVER_ERROR", "서버 오류가 발생했습니다."),

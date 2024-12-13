@@ -5,6 +5,7 @@ import com.example.gonggang.domain.appointment.domain.AppointmentParticipant;
 import com.example.gonggang.domain.appointment.domain.AppointmentRoom;
 import com.example.gonggang.domain.appointment.dto.request.AppointmentCreateRequest;
 import com.example.gonggang.domain.appointment.dto.request.AppointmentEnterRequest;
+import com.example.gonggang.domain.appointment.dto.response.AllAppointmentBoardResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentAllResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentCreateResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentRemainingResponse;
@@ -53,7 +54,7 @@ public class AppointmentManageService {
         appointmentParticipantSaveService.save(appointmentParticipant);
         appointmentRoomSaveService.save(appointmentRoom);
 
-        return AppointmentCreateResponse.toResponse(code);
+        return AppointmentCreateResponse.toResponse(userId, code);
     }
 
     @Transactional
@@ -143,7 +144,7 @@ public class AppointmentManageService {
         Weekday weekDay = Weekday.fromEnglish(now.getDayOfWeek().toString());
         Users user = userGetService.findByMemberId(userId);
 
-        List<FreeTime> freeTimes = freeTimeGetService.findAllByUserAndWeekDay(user,weekDay);
+        List<FreeTime> freeTimes = freeTimeGetService.findAllByUserAndWeekDay(user, weekDay);
         List<FreeTimeItem> freeTimeItems = freeTimes.stream().map(FreeTimeItem::of).toList();
 
         List<List<AppointmentBoard>> appointmentBoards = freeTimes.stream()
@@ -151,5 +152,17 @@ public class AppointmentManageService {
                 .toList();
 
         return AppointmentAllResponse.toResponse(weekDay.getValue(), freeTimeItems, appointmentBoards);
+    }
+
+    @Transactional(readOnly = true)
+    public AllAppointmentBoardResponse readAll() {
+        List<AppointmentBoard> appointmentBoards = appointmentBoardGetService.findAllBoard();
+        return AllAppointmentBoardResponse.toResponse(appointmentBoards);
+    }
+
+    @Transactional
+    public void update(Long boardId) {
+        AppointmentBoard appointmentBoard = appointmentBoardGetService.findById(boardId);
+        appointmentBoard.increaseReportCount();
     }
 }
