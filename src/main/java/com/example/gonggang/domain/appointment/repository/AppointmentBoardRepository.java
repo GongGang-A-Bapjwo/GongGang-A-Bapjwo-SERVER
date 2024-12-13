@@ -4,6 +4,7 @@ import com.example.gonggang.domain.appointment.domain.AppointmentBoard;
 import com.example.gonggang.domain.common.Weekday;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AppointmentBoardRepository extends JpaRepository<AppointmentBoard,Long> {
@@ -11,4 +12,6 @@ public interface AppointmentBoardRepository extends JpaRepository<AppointmentBoa
                                                                   Weekday weekday);
 
     List<AppointmentBoard> findAll();
+
+    Optional<AppointmentBoard> findById(long id);
 }
