@@ -15,9 +15,9 @@ public interface FastApiClient {
 		@RequestParam("username") String username
 	);
 
-	@PostMapping("/send-code")
+	@PostMapping("/save-code")
 	Map<String, Object> sendEntranceCodeAndUserId(
-		@RequestParam("entranceCode") String entranceCode,
-		@RequestParam("userId") int userId
+		@RequestParam("entrance_code") String entranceCode,
+		@RequestParam("user_id") int userId
 	);
 }
