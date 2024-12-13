@@ -42,19 +42,24 @@ public class AppointmentBoard extends BaseTimeEntity {
     @Column
     private String chattingUrl;
 
+    @Column
+    private long reportCount;
+
     @Builder
     private AppointmentBoard(
             final LocalTime startTime,
             final LocalTime endTime,
             final Weekday weekday,
             final Category category,
-            final String chattingUrl
+            final String chattingUrl,
+            final int reportCount
     ) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.weekday = weekday;
         this.category = category;
         this.chattingUrl = chattingUrl;
+        this.reportCount = reportCount;
     }
 
     public static AppointmentBoard create(
@@ -62,7 +67,8 @@ public class AppointmentBoard extends BaseTimeEntity {
             final LocalTime endTime,
             final Weekday weekday,
             final Category category,
-            final String chattingUrl
+            final String chattingUrl,
+            final int reportCount
     ) {
         return AppointmentBoard.builder()
                 .startTime(startTime)
@@ -70,6 +76,7 @@ public class AppointmentBoard extends BaseTimeEntity {
                 .weekday(weekday)
                 .category(category)
                 .chattingUrl(chattingUrl)
+                .reportCount(reportCount)
                 .build();
     }
 }
