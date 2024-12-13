@@ -56,6 +56,7 @@ public class Member extends BaseTimeEntity {
 	@Column
 	private String timeTableImageUrl;
 
+	@Enumerated(EnumType.STRING)
 	@Column
 	private RegisterType registerType;
 
