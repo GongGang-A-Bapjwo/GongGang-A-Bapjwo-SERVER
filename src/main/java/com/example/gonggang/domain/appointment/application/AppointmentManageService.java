@@ -51,8 +51,9 @@ public class AppointmentManageService {
         AppointmentParticipant appointmentParticipant = AppointmentParticipant.create(user, appointmentRoom, true,
                 false);
 
-        appointmentParticipantSaveService.save(appointmentParticipant);
         appointmentRoomSaveService.save(appointmentRoom);
+        appointmentParticipantSaveService.save(appointmentParticipant);
+
 
         return AppointmentCreateResponse.toResponse(userId, code);
     }
