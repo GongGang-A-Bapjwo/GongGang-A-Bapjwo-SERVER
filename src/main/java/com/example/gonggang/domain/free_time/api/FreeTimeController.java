@@ -1,11 +1,11 @@
 package com.example.gonggang.domain.free_time.api;
 
+import com.example.gonggang.domain.external.fast_api.dto.FastApiResponse;
 import com.example.gonggang.domain.free_time.application.FreeTimeManageService;
 import com.example.gonggang.domain.free_time.dto.request.FreeTimeRequest;
 import com.example.gonggang.domain.free_time.dto.response.FreeTimeAllResponse;
 import com.example.gonggang.global.config.success.SuccessCode;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -46,7 +46,7 @@ public class FreeTimeController implements FreeTimeApi {
 	) {
 		ImageUploadResponse response = freeTimeImageService.uploadImage(memberId, file);
 
-		Map<String, Object> fastApiResponse = fastApiService.sendImageUrlAndMemberIdToFastApi(
+		FastApiResponse fastApiResponse = fastApiService.sendImageUrlAndMemberIdToFastApi(
 			response.imageUrl(), response.memberId().toString()
 		);
 
