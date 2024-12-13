@@ -8,6 +8,7 @@ import com.example.gonggang.domain.appointment.dto.request.AppointmentEnterReque
 import com.example.gonggang.domain.appointment.dto.response.AllAppointmentBoardResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentAllResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentCreateResponse;
+import com.example.gonggang.domain.appointment.dto.response.AppointmentEntranceResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentRemainingResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentsGetResponse;
 import com.example.gonggang.domain.appointment.exception.AccessDeniedException;
@@ -59,10 +60,11 @@ public class AppointmentManageService {
     }
 
     @Transactional
-    public void enter(Long userId, AppointmentEnterRequest appointmentEnterRequest) {
+    public AppointmentEntranceResponse enter(Long userId, AppointmentEnterRequest appointmentEnterRequest) {
         Users user = userGetService.findByMemberId(userId);
-        AppointmentRoom appointmentRoom = appointmentRoomGetService.findByEnteranceCode(
-                appointmentEnterRequest.entranceCode());
+        String entranceCode = appointmentEnterRequest.entranceCode();
+
+        AppointmentRoom appointmentRoom = appointmentRoomGetService.findByEnteranceCode(entranceCode);
 
         checkAvailable(appointmentRoom, user);
 
@@ -70,6 +72,7 @@ public class AppointmentManageService {
                 false);
         appointmentParticipantSaveService.save(appointmentParticipant);
         appointmentRoom.plusCurrentParticipants();
+        return AppointmentEntranceResponse.of(user.getId(), entranceCode);
     }
 
     private void checkAvailable(AppointmentRoom appointmentRoom, Users user) {
