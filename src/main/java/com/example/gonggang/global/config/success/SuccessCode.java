@@ -11,7 +11,8 @@ public enum SuccessCode {
     SIGN_OUT_SUCCESS(200, "SIGN_OUT_SUCCESS","로그아웃 성공"),
     ENTER_SUCCESS(200,"ENTER_SUCCESSED","공강팟 입장 성공"),
     UPDATE_SUCCESS(200, "UPDATE_SUCCESS", "업데이트 성공"),
-    CREATE_SUCCESS(200,"CREATE_SUCCESS","생성 성공");
+    CREATE_SUCCESS(200,"CREATE_SUCCESS","생성 성공"),
+    DELETE_SUCCESS(200,"DELETE_SUCCESS", "삭제 성공");
 
     private final int httpStatus;
     private final String code;
