@@ -1,5 +1,6 @@
 package com.example.gonggang.domain.free_time.application;
 
+import com.example.gonggang.domain.external.fast_api.dto.FastApiResponse;
 import com.example.gonggang.domain.free_time.dto.request.FreeTimeRequest;
 import com.example.gonggang.domain.free_time.dto.request.FreeTimeRequestItem;
 import java.time.LocalTime;
@@ -29,8 +30,9 @@ public class FreeTimeSaveService {
 	private final UserGetService userGetService;
 	private final FreeTimeGetService freeTimeGetService;
 
-	public List<FreeTimeResponse> saveFreeTimes(Map<String, Object> fastApiResponse) {
-		String memberIdStr = (String) fastApiResponse.get("user_name");
+	public List<FreeTimeResponse> saveFreeTimes(FastApiResponse fastApiResponse) {
+		Map<String, Object> responseMap = fastApiResponse.response();
+		String memberIdStr = (String) responseMap.get("user_name");
 		long memberId = Long.parseLong(memberIdStr);
 
 		Users user = userGetService.findByMemberId(memberId);
@@ -47,8 +49,9 @@ public class FreeTimeSaveService {
 
 	// 'output'을 추출하는 메서드
 	@SuppressWarnings("unchecked")
-	private Map<String, List<String>> extractSchedule(Map<String, Object> fastApiResponse) {
-		Object outputObj = fastApiResponse.get("output");
+	private Map<String, List<String>> extractSchedule(FastApiResponse fastApiResponse) {
+		Map<String, Object> responseMap = fastApiResponse.response();
+		Object outputObj = responseMap.get("output");
 
 		if (!(outputObj instanceof List)) {
 			throw new OutputIsNotListException();
