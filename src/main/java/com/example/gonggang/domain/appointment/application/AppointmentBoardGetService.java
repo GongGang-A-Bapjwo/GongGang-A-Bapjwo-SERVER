@@ -15,4 +15,8 @@ public class AppointmentBoardGetService {
     public List<AppointmentBoard> findAllBoard(FreeTime freeTime) {
         return appointmentBoardRepository.findAllByStartTimeAndEndTimeAndWeekday(freeTime.getStartTime(),freeTime.getEndTime(), freeTime.getWeekday());
     }
+
+    public List<AppointmentBoard> findAllBoard() {
+        return appointmentBoardRepository.findAll();
+    }
 }
