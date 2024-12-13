@@ -20,6 +20,7 @@ import com.example.gonggang.domain.appointment.dto.request.AppointmentEnterReque
 import com.example.gonggang.domain.appointment.dto.response.AllAppointmentBoardResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentAllResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentCreateResponse;
+import com.example.gonggang.domain.appointment.dto.response.AppointmentEntranceResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentRemainingResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentsGetResponse;
 import com.example.gonggang.domain.external.fast_api.application.FastApiService;
@@ -39,19 +40,21 @@ public class AppointmentController {
 	@PostMapping
 	public ResponseEntity<FastApiResponse> create(@CurrentMember Long userId,
 		@RequestBody AppointmentCreateRequest appointmentCreateRequest) {
-		AppointmentCreateResponse result = appointmentManageService.create(userId, appointmentCreateRequest);
-		FastApiResponse fastApiResponse = fastApiService.sendEntranceCodeAndUserIdToFastApi(result.entranceCode(),
-			result.userId());
+		AppointmentCreateResponse response = appointmentManageService.create(userId, appointmentCreateRequest);
+		FastApiResponse fastApiResponse = fastApiService.sendEntranceCodeAndUserIdToFastApi(response.entranceCode(),
+			response.userId());
 
 		return ResponseEntity.ok(fastApiResponse);
 	}
 
 	@PostMapping("/entrance")
-	public ResponseEntity<String> create(@CurrentMember Long userId,
+	public ResponseEntity<FastApiResponse> create(@CurrentMember Long userId,
 		@RequestBody AppointmentEnterRequest appointmentEnterRequest) {
 
-		appointmentManageService.enter(userId, appointmentEnterRequest);
-		return ResponseEntity.ok(ENTER_SUCCESS.getMessage());
+		AppointmentEntranceResponse response = appointmentManageService.enter(userId, appointmentEnterRequest);
+		FastApiResponse fastApiResponse = fastApiService.sendEntranceCodeAndUserIdToFastApi(response.entranceCode(), response.userId());
+
+		return ResponseEntity.ok(fastApiResponse);
 	}
 
 	@GetMapping
