@@ -54,7 +54,7 @@ public class AppointmentManageService {
         appointmentParticipantSaveService.save(appointmentParticipant);
         appointmentRoomSaveService.save(appointmentRoom);
 
-        return AppointmentCreateResponse.toResponse(code);
+        return AppointmentCreateResponse.toResponse(userId, code);
     }
 
     @Transactional
