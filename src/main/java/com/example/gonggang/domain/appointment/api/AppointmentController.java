@@ -1,6 +1,18 @@
 package com.example.gonggang.domain.appointment.api;
 
-import static com.example.gonggang.global.config.success.SuccessCode.ENTER_SUCCESS;
+import static com.example.gonggang.global.config.success.SuccessCode.*;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.gonggang.domain.appointment.application.AppointmentManageService;
 import com.example.gonggang.domain.appointment.dto.request.AppointmentCreateRequest;
@@ -15,18 +27,7 @@ import com.example.gonggang.domain.external.fast_api.dto.FastApiResponse;
 import com.example.gonggang.global.auth.annotation.CurrentMember;
 import com.example.gonggang.global.config.success.SuccessCode;
 
-import java.util.List;
-
 import lombok.RequiredArgsConstructor;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/appointment")
@@ -35,63 +36,65 @@ public class AppointmentController {
 	private final AppointmentManageService appointmentManageService;
 	private final FastApiService fastApiService;
 
-    @PostMapping()
-    public ResponseEntity<FastApiResponse> create(@CurrentMember Long userId,
-                                                            @RequestBody AppointmentCreateRequest appointmentCreateRequest) {
-        AppointmentCreateResponse result = appointmentManageService.create(userId, appointmentCreateRequest);
-        FastApiResponse fastApiResponse = fastApiService.sendEntranceCodeAndUserIdToFastApi(result.entranceCode(), result.userId());
+	@PostMapping
+	public ResponseEntity<FastApiResponse> create(@CurrentMember Long userId,
+		@RequestBody AppointmentCreateRequest appointmentCreateRequest) {
+		AppointmentCreateResponse result = appointmentManageService.create(userId, appointmentCreateRequest);
+		FastApiResponse fastApiResponse = fastApiService.sendEntranceCodeAndUserIdToFastApi(result.entranceCode(),
+			result.userId());
 
-        return ResponseEntity.ok(fastApiResponse);
-    }
+		return ResponseEntity.ok(fastApiResponse);
+	}
 
-    @PostMapping("/enter")
-    public ResponseEntity<String> create(@CurrentMember Long userId,
-                                       @RequestBody AppointmentEnterRequest appointmentEnterRequest) {
+	@PostMapping("/entrance")
+	public ResponseEntity<String> create(@CurrentMember Long userId,
+		@RequestBody AppointmentEnterRequest appointmentEnterRequest) {
 
-        appointmentManageService.enter(userId, appointmentEnterRequest);
-        return ResponseEntity.ok(ENTER_SUCCESS.getMessage());
-    }
+		appointmentManageService.enter(userId, appointmentEnterRequest);
+		return ResponseEntity.ok(ENTER_SUCCESS.getMessage());
+	}
 
-    @GetMapping
-    public ResponseEntity<List<AppointmentsGetResponse>> readAll(@CurrentMember Long userId) {
-        List<AppointmentsGetResponse> result = appointmentManageService.readAll(userId);
-        return ResponseEntity.ok(result);
-    }
+	@GetMapping
+	public ResponseEntity<List<AppointmentsGetResponse>> readAll(@CurrentMember Long userId) {
+		List<AppointmentsGetResponse> result = appointmentManageService.readAll(userId);
+		return ResponseEntity.ok(result);
+	}
 
-    @GetMapping("/{roomId}")
-    public ResponseEntity<String> delete(@CurrentMember Long userId, @PathVariable Long roomId) {
-        appointmentManageService.delete(userId,roomId);
-        return ResponseEntity.ok("성공");
-    }
+	@DeleteMapping("/{roomId}")
+	public ResponseEntity<String> delete(@CurrentMember Long userId, @PathVariable Long roomId) {
+		appointmentManageService.delete(userId, roomId);
+		return ResponseEntity.ok("성공");
+	}
 
-    @GetMapping("/remaining-count/{roomId}")
-    public ResponseEntity<AppointmentRemainingResponse> read(@CurrentMember Long userId, @PathVariable Long roomId) {
-        AppointmentRemainingResponse response = appointmentManageService.read(userId, roomId);
-        return ResponseEntity.ok(response);
-    }
+	@GetMapping("/remaining-count/{roomId}")
+	public ResponseEntity<AppointmentRemainingResponse> read(@CurrentMember Long userId, @PathVariable Long roomId) {
+		AppointmentRemainingResponse response = appointmentManageService.read(userId, roomId);
+		return ResponseEntity.ok(response);
+	}
 
-    @PutMapping("/update-setting/{roomId}")
-    public ResponseEntity<String> update(@CurrentMember Long userId, @PathVariable Long roomId, @RequestBody AppointmentCreateRequest request) {
-        appointmentManageService.update(userId, roomId, request);
-        return ResponseEntity.ok(SuccessCode.UPDATE_SUCCESS.getMessage());
-    }
+	@PutMapping("/setting/{roomId}")
+	public ResponseEntity<String> update(@CurrentMember Long userId, @PathVariable Long roomId,
+		@RequestBody AppointmentCreateRequest request) {
+		appointmentManageService.update(userId, roomId, request);
+		return ResponseEntity.ok(SuccessCode.UPDATE_SUCCESS.getMessage());
+	}
 
-    @GetMapping("/all")
-    public ResponseEntity<AppointmentAllResponse> read(@CurrentMember Long userId) {
-        AppointmentAllResponse response = appointmentManageService.read(userId);
-        return ResponseEntity.ok(response);
-    }
+	@GetMapping("/all")
+	public ResponseEntity<AppointmentAllResponse> read(@CurrentMember Long userId) {
+		AppointmentAllResponse response = appointmentManageService.read(userId);
+		return ResponseEntity.ok(response);
+	}
 
-    @GetMapping("/all-board")
-    public ResponseEntity<AllAppointmentBoardResponse> readAllRoom() {
-        AllAppointmentBoardResponse response = appointmentManageService.readAll();
-        return ResponseEntity.ok(response);
-    }
+	@GetMapping("/all-board")
+	public ResponseEntity<AllAppointmentBoardResponse> readAllRoom() {
+		AllAppointmentBoardResponse response = appointmentManageService.readAll();
+		return ResponseEntity.ok(response);
+	}
 
-    @GetMapping("/report/{boardId}")
-    public ResponseEntity<String> updateReportCount(
-        @PathVariable Long boardId) {
-        appointmentManageService.update(boardId);
-        return ResponseEntity.ok(SuccessCode.UPDATE_SUCCESS.getMessage());
-    }
+	@GetMapping("/report/{boardId}")
+	public ResponseEntity<String> updateReportCount(
+		@PathVariable Long boardId) {
+		appointmentManageService.update(boardId);
+		return ResponseEntity.ok(SuccessCode.UPDATE_SUCCESS.getMessage());
+	}
 }
