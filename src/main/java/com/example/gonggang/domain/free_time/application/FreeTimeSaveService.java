@@ -1,8 +1,10 @@
 package com.example.gonggang.domain.free_time.application;
 
 import com.example.gonggang.domain.external.fast_api.dto.FastApiResponse;
+import com.example.gonggang.domain.external.fast_api.util.TimeFormater;
 import com.example.gonggang.domain.free_time.dto.request.FreeTimeRequest;
 import com.example.gonggang.domain.free_time.dto.request.FreeTimeRequestItem;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,7 @@ public class FreeTimeSaveService {
 
 	public List<FreeTimeResponse> saveFreeTimes(FastApiResponse fastApiResponse) {
 		Map<String, Object> responseMap = fastApiResponse.response();
-		String memberIdStr = (String) responseMap.get("user_name");
+		String memberIdStr = (String)responseMap.get("user_name");
 		long memberId = Long.parseLong(memberIdStr);
 
 		Users user = userGetService.findByMemberId(memberId);
@@ -47,6 +49,30 @@ public class FreeTimeSaveService {
 		return formatResponse(freeTimes);
 	}
 
+	public void create(Long userId, FreeTimeRequest request) {
+		Users user = userGetService.findByMemberId(userId);
+		List<FreeTimeRequestItem> requestItems = request.freeTimeRequestItems();
+		List<FreeTime> freeTimes = requestItems.stream().map(item ->
+			FreeTime.create(LocalTime.parse(item.startTime()), LocalTime.parse(item.endTime()), item.weekday(), user)
+		).toList();
+
+		freeTimeRepository.saveAll(freeTimes);
+	}
+
+	public void update(Long userId, FreeTimeRequest request) {
+		Users user = userGetService.findByMemberId(userId);
+
+		List<FreeTime> freeTimes = freeTimeGetService.findAllByUser(user);
+		freeTimeRepository.deleteAll(freeTimes);
+
+		List<FreeTimeRequestItem> requestItems = request.freeTimeRequestItems();
+		List<FreeTime> newFreeTimes = requestItems.stream().map(item ->
+			FreeTime.create(LocalTime.parse(item.startTime()), LocalTime.parse(item.endTime()), item.weekday(), user)
+		).toList();
+
+		freeTimeRepository.saveAll(newFreeTimes);
+	}
+
 	// 'output'을 추출하는 메서드
 	@SuppressWarnings("unchecked")
 	private Map<String, List<String>> extractSchedule(FastApiResponse fastApiResponse) {
@@ -57,17 +83,17 @@ public class FreeTimeSaveService {
 			throw new OutputIsNotListException();
 		}
 
-		if (((List<?>) outputObj).isEmpty()) {
+		if (((List<?>)outputObj).isEmpty()) {
 			throw new OutputListIsEmptyException();
 		}
 
-		Object firstElement = ((List<?>) outputObj).getFirst();
+		Object firstElement = ((List<?>)outputObj).getFirst();
 
 		if (!(firstElement instanceof Map)) {
 			throw new OutputFirstElementIsNotMapException();
 		}
 
-		return (Map<String, List<String>>) firstElement;
+		return (Map<String, List<String>>)firstElement;
 	}
 
 	private void createFreeTimes(Map<String, List<String>> schedule, Users user, List<FreeTime> freeTimes) {
@@ -83,8 +109,8 @@ public class FreeTimeSaveService {
 		String[] times = timeSlot.split("-");
 
 		// 시간을 "9-17" -> "09:00-17:00" 형식으로 변환
-		String startTimeStr = convertToTimeFormat(times[0]);
-		String endTimeStr = convertToTimeFormat(times[1]);
+		String startTimeStr = TimeFormater.convertToTimeFormat(times[0]);
+		String endTimeStr = TimeFormater.convertToTimeFormat(times[1]);
 
 		// LocalTime으로 파싱
 		LocalTime startTime = LocalTime.parse(startTimeStr);
@@ -96,16 +122,6 @@ public class FreeTimeSaveService {
 		return FreeTime.create(startTime, endTime, weekday, user);
 	}
 
-	// 시간을 "9" -> "09:00" 형식으로 변환하는 메서드
-	private String convertToTimeFormat(String time) {
-		if (time.length() == 1) {
-			time = "0" + time + ":00"; // "9" -> "09:00" 변환
-		} else if (time.length() == 2 && !time.contains(":")) {
-			time = time + ":00"; // "17" -> "17:00" 변환
-		}
-		return time + ":00"; // 기본적으로 ":00"을 붙여서 반환
-	}
-
 	private List<FreeTimeResponse> formatResponse(List<FreeTime> freeTimes) {
 		return freeTimes.stream()
 			.map(freeTime -> FreeTimeResponse.of(
@@ -115,29 +131,5 @@ public class FreeTimeSaveService {
 				freeTime.getUser().getId()
 			))
 			.toList();
-	}
-
-	public void create(Long userId, FreeTimeRequest request) {
-		Users user = userGetService.findByMemberId(userId);
-		List<FreeTimeRequestItem> requestItems = request.freeTimeRequestItems();
-		List<FreeTime> freeTimes = requestItems.stream().map(item->
-				FreeTime.create(LocalTime.parse(item.startTime()),LocalTime.parse(item.endTime()),item.weekday(),user)
-		).toList();
-
-		freeTimeRepository.saveAll(freeTimes);
-	}
-
-	public void update(Long userId, FreeTimeRequest request) {
-		Users user = userGetService.findByMemberId(userId);
-
-		List<FreeTime> freeTimes = freeTimeGetService.findAllByUser(user);
-		freeTimeRepository.deleteAll(freeTimes);
-
-		List<FreeTimeRequestItem> requestItems = request.freeTimeRequestItems();
-		List<FreeTime> newFreeTimes = requestItems.stream().map(item->
-				FreeTime.create(LocalTime.parse(item.startTime()),LocalTime.parse(item.endTime()),item.weekday(),user)
-		).toList();
-
-		freeTimeRepository.saveAll(newFreeTimes);
 	}
 }
