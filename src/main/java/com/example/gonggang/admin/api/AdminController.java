@@ -2,9 +2,9 @@ package com.example.gonggang.admin.api;
 
 import com.example.gonggang.admin.application.AppointmentManagerService;
 import com.example.gonggang.domain.appointment.application.AppointmentBoardGetService;
-import com.example.gonggang.domain.appointment.application.AppointmentManageService;
 import com.example.gonggang.domain.appointment.dto.response.AllAppointmentBoardResponse;
 import com.example.gonggang.global.config.success.SuccessCode;
+
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
