@@ -50,19 +50,19 @@ public class AdminController implements AdminApi {
 		return ResponseEntity.ok().body("ok");
 	}
 
-	@GetMapping("/get-members")
+	@GetMapping("/members")
 	public ResponseEntity<List<ReadAllMemberResponse>> findAll() {
 		List<ReadAllMemberResponse> response = userManageService.readAll();
 		return ResponseEntity.ok(response);
 	}
 
-	@GetMapping("/delete/{email}")
+	@DeleteMapping("/{email}")
 	public ResponseEntity<String> delete(@PathVariable String email) {
 		userManageService.delete(email);
 		return ResponseEntity.ok(SuccessCode.DELETE_SUCCESS.getMessage());
 	}
 
-	@GetMapping("get-appointmentBoards")
+	@GetMapping("/appointmentBoards")
 	public ResponseEntity<AllAppointmentBoardResponse> readAll() {
 		AllAppointmentBoardResponse response = appointmentManagerService.readAll();
 		return ResponseEntity.ok(response);
