@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.example.gonggang.domain.external.fast_api.dto.FastApiResponse;
 import com.example.gonggang.domain.external.fast_api.feign.FastApiClient;
 
 import lombok.RequiredArgsConstructor;
@@ -13,11 +14,13 @@ import lombok.RequiredArgsConstructor;
 public class FastApiService {
 	private final FastApiClient fastApiClient;
 
-	public Map<String, Object> sendImageUrlAndMemberIdToFastApi(String imageUrl, String memberId) {
-		return fastApiClient.sendImageUrlAndMemberId(imageUrl, memberId);
+	public FastApiResponse sendImageUrlAndMemberIdToFastApi(String imageUrl, String memberId) {
+		Map<String, Object> response = fastApiClient.sendImageUrlAndMemberId(imageUrl, memberId);
+		return FastApiResponse.from(response);
 	}
 
-	public Map<String, Object> sendEntranceCodeAndUserIdToFastApi(String entranceCode, int userId) {
-		return fastApiClient.sendEntranceCodeAndUserId(entranceCode, userId);
+	public FastApiResponse sendEntranceCodeAndUserIdToFastApi(String entranceCode, Long userId) {
+		Map<String, Object> response = fastApiClient.sendEntranceCodeAndUserId(entranceCode, userId.intValue());
+		return FastApiResponse.from(response);
 	}
 }
