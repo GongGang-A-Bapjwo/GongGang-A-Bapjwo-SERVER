@@ -159,4 +159,10 @@ public class AppointmentManageService {
         List<AppointmentBoard> appointmentBoards = appointmentBoardGetService.findAllBoard();
         return AllAppointmentBoardResponse.toResponse(appointmentBoards);
     }
+
+    @Transactional
+    public void update(Long boardId) {
+        AppointmentBoard appointmentBoard = appointmentBoardGetService.findById(boardId);
+        appointmentBoard.increaseReportCount();
+    }
 }

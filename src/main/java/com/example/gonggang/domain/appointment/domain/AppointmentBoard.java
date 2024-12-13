@@ -79,4 +79,8 @@ public class AppointmentBoard extends BaseTimeEntity {
                 .reportCount(reportCount)
                 .build();
     }
+
+    public void increaseReportCount() {
+        this.reportCount += 1;
+    }
 }

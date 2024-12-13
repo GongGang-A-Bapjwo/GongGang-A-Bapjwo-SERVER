@@ -80,4 +80,10 @@ public class AppointmentController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/report/{boardId}")
+    public ResponseEntity<String> updateReportCount(Long roomId) {
+        appointmentManageService.update(roomId);
+        return ResponseEntity.ok(SuccessCode.UPDATE_SUCCESS.getMessage());
+    }
+
 }
