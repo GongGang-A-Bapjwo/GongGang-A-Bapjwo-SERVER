@@ -1,11 +1,6 @@
 package com.example.gonggang.domain.free_time.api;
 
-import com.example.gonggang.domain.free_time.application.FreeTimeManageService;
-import com.example.gonggang.domain.free_time.dto.request.FreeTimeRequest;
-import com.example.gonggang.domain.free_time.dto.response.FreeTimeAllResponse;
-import com.example.gonggang.global.config.success.SuccessCode;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,11 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.gonggang.domain.external.fast_api.application.FastApiService;
+import com.example.gonggang.domain.external.fast_api.dto.FastApiResponse;
 import com.example.gonggang.domain.free_time.application.FreeTimeImageService;
+import com.example.gonggang.domain.free_time.application.FreeTimeManageService;
 import com.example.gonggang.domain.free_time.application.FreeTimeSaveService;
+import com.example.gonggang.domain.free_time.dto.request.FreeTimeRequest;
+import com.example.gonggang.domain.free_time.dto.response.FreeTimeAllResponse;
 import com.example.gonggang.domain.free_time.dto.response.FreeTimeResponse;
 import com.example.gonggang.domain.free_time.dto.response.ImageUploadResponse;
 import com.example.gonggang.global.auth.annotation.CurrentMember;
+import com.example.gonggang.global.config.success.SuccessCode;
 
 import lombok.RequiredArgsConstructor;
 
@@ -46,7 +46,7 @@ public class FreeTimeController implements FreeTimeApi {
 	) {
 		ImageUploadResponse response = freeTimeImageService.uploadImage(memberId, file);
 
-		Map<String, Object> fastApiResponse = fastApiService.sendImageUrlAndMemberIdToFastApi(
+		FastApiResponse fastApiResponse = fastApiService.sendImageUrlAndMemberIdToFastApi(
 			response.imageUrl(), response.memberId().toString()
 		);
 
@@ -56,13 +56,13 @@ public class FreeTimeController implements FreeTimeApi {
 			.body(freeTimes);
 	}
 
-	@PostMapping("/set-freetime")
+	@PostMapping("/setting-freetime")
 	public ResponseEntity<String> create(@CurrentMember Long userId, @RequestBody FreeTimeRequest freeTimeRequest) {
 		freeTimeSaveService.create(userId, freeTimeRequest);
 		return ResponseEntity.ok(SuccessCode.CREATE_SUCCESS.getMessage());
 	}
 
-	@PutMapping("/set-freetime")
+	@PutMapping("/updating-freetime")
 	public ResponseEntity<String> update(@CurrentMember Long userId, @RequestBody FreeTimeRequest freeTimeRequest) {
 		freeTimeSaveService.update(userId, freeTimeRequest);
 		return ResponseEntity.ok(SuccessCode.UPDATE_SUCCESS.getMessage());

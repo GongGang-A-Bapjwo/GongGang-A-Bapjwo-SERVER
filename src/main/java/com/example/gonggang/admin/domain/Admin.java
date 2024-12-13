@@ -4,6 +4,8 @@ import com.example.gonggang.domain.users.domain.Role;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,7 +29,8 @@ public class Admin {
 	@Column(nullable = false)
 	private String adminPassword;
 
-	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	@Column(columnDefinition = "varchar(10) default 'ADMIN'", nullable = false)
 	Role role;
 
 	@Builder

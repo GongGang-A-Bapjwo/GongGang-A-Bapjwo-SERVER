@@ -43,7 +43,7 @@ public class FreeTime extends BaseTimeEntity {
 	@Column(nullable = false)
 	private Weekday weekday;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Users user;
