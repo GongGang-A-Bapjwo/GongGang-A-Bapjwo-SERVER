@@ -3,6 +3,7 @@ package com.example.gonggang.domain.external.fast_api.feign;
 import java.util.Map;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,5 +20,10 @@ public interface FastApiClient {
 	Map<String, Object> sendEntranceCodeAndUserId(
 		@RequestParam("entrance_code") String entranceCode,
 		@RequestParam("user_id") int userId
+	);
+
+	@GetMapping("/meet")
+	Map<String, Object> sendEntranceCode(
+		@RequestParam("entrance_code") String entranceCode
 	);
 }
