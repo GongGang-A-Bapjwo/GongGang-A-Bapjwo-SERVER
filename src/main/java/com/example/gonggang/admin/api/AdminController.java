@@ -1,9 +1,11 @@
 package com.example.gonggang.admin.api;
 
+import com.example.gonggang.global.config.success.SuccessCode;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,5 +47,11 @@ public class AdminController implements AdminApi {
 	public ResponseEntity<List<ReadAllMemberResponse>> findAll() {
 		List<ReadAllMemberResponse> response = userManageService.readAll();
 		return ResponseEntity.ok(response);
+	}
+
+	@GetMapping("/delete/{email}")
+	public ResponseEntity<String> delete(@PathVariable String email) {
+		userManageService.delete(email);
+		return ResponseEntity.ok(SuccessCode.DELETE_SUCCESS.getMessage());
 	}
 }

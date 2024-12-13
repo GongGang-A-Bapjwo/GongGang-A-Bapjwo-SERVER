@@ -56,4 +56,14 @@ public class MemberService {
 	public List<Member> findAll() {
 		return memberRepository.findAll();
 	}
+
+	@Transactional(readOnly = true)
+	public Member find(String email) {
+		return memberRepository.findByEmail(email).orElseThrow(MemberNotFoundExcepption::new);
+	}
+
+	@Transactional
+	public void delete(Member member) {
+		memberRepository.delete(member);
+	}
 }

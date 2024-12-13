@@ -6,6 +6,7 @@ import com.example.gonggang.domain.member.domain.Member;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,5 +18,11 @@ public class UserManageService {
         return members.stream()
                 .map(ReadAllMemberResponse::toResponse)
                 .toList();
+    }
+
+    @Transactional
+    public void delete(String email) {
+        Member member = memberService.find(email);
+        memberService.delete(member);
     }
 }
