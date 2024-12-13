@@ -1,8 +1,7 @@
 package com.example.gonggang.domain.appointment.api;
 
-import static com.example.gonggang.global.config.success.SuccessCode.*;
-
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.gonggang.domain.appointment.application.AppointmentManageService;
 import com.example.gonggang.domain.appointment.dto.request.AppointmentCreateRequest;
 import com.example.gonggang.domain.appointment.dto.request.AppointmentEnterRequest;
+import com.example.gonggang.domain.appointment.dto.request.AppointmentExtractTimeRequest;
 import com.example.gonggang.domain.appointment.dto.response.AllAppointmentBoardResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentAllResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentCreateResponse;
@@ -99,5 +99,15 @@ public class AppointmentController {
 		@PathVariable Long boardId) {
 		appointmentManageService.update(boardId);
 		return ResponseEntity.ok(SuccessCode.UPDATE_SUCCESS.getMessage());
+	}
+
+	@PostMapping("/meet")
+	public ResponseEntity<Map<String, Object>> createAppointment(
+		@CurrentMember Long userId,
+		@RequestBody AppointmentExtractTimeRequest request
+	) {
+		FastApiResponse fastApiResponse = fastApiService.sendEntranceCodeToFastApi(request.entranceCode());
+		Map<String, Object> result = appointmentManageService.processFastApiResponse(fastApiResponse.response(), userId, request.roomId());
+		return ResponseEntity.ok(result);
 	}
 }
