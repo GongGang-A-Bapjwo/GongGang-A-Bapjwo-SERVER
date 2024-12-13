@@ -11,6 +11,7 @@ import com.example.gonggang.domain.appointment.dto.response.AppointmentCreateRes
 import com.example.gonggang.domain.appointment.dto.response.AppointmentRemainingResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentsGetResponse;
 import com.example.gonggang.domain.external.fast_api.application.FastApiService;
+import com.example.gonggang.domain.external.fast_api.dto.FastApiResponse;
 import com.example.gonggang.global.auth.annotation.CurrentMember;
 import com.example.gonggang.global.config.success.SuccessCode;
 
@@ -35,10 +36,12 @@ public class AppointmentController {
 	private final FastApiService fastApiService;
 
     @PostMapping()
-    public ResponseEntity<AppointmentCreateResponse> create(@CurrentMember Long userId,
+    public ResponseEntity<FastApiResponse> create(@CurrentMember Long userId,
                                                             @RequestBody AppointmentCreateRequest appointmentCreateRequest) {
         AppointmentCreateResponse result = appointmentManageService.create(userId, appointmentCreateRequest);
-        return ResponseEntity.ok(result);
+        FastApiResponse fastApiResponse = fastApiService.sendEntranceCodeAndUserIdToFastApi(result.entranceCode(), result.userId());
+
+        return ResponseEntity.ok(fastApiResponse);
     }
 
     @PostMapping("/enter")
@@ -86,9 +89,9 @@ public class AppointmentController {
     }
 
     @GetMapping("/report/{boardId}")
-    public ResponseEntity<String> updateReportCount(Long roomId) {
-        appointmentManageService.update(roomId);
+    public ResponseEntity<String> updateReportCount(
+        @PathVariable Long boardId) {
+        appointmentManageService.update(boardId);
         return ResponseEntity.ok(SuccessCode.UPDATE_SUCCESS.getMessage());
     }
-
 }
