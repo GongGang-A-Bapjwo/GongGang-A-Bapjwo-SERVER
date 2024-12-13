@@ -5,7 +5,7 @@ import com.example.gonggang.domain.appointment.domain.AppointmentParticipant;
 import com.example.gonggang.domain.appointment.domain.AppointmentRoom;
 import com.example.gonggang.domain.appointment.dto.request.AppointmentCreateRequest;
 import com.example.gonggang.domain.appointment.dto.request.AppointmentEnterRequest;
-import com.example.gonggang.domain.appointment.dto.response.AllAppointmentRoomResponse;
+import com.example.gonggang.domain.appointment.dto.response.AllAppointmentBoardResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentAllResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentCreateResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentRemainingResponse;
@@ -155,8 +155,8 @@ public class AppointmentManageService {
     }
 
     @Transactional(readOnly = true)
-    public AllAppointmentRoomResponse readAll() {
+    public AllAppointmentBoardResponse readAll() {
         List<AppointmentBoard> appointmentBoards = appointmentBoardGetService.findAllBoard();
-        return AllAppointmentRoomResponse.toResponse(appointmentBoards);
+        return AllAppointmentBoardResponse.toResponse(appointmentBoards);
     }
 }

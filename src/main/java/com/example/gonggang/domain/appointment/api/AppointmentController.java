@@ -5,7 +5,7 @@ import static com.example.gonggang.global.config.success.SuccessCode.ENTER_SUCCE
 import com.example.gonggang.domain.appointment.application.AppointmentManageService;
 import com.example.gonggang.domain.appointment.dto.request.AppointmentCreateRequest;
 import com.example.gonggang.domain.appointment.dto.request.AppointmentEnterRequest;
-import com.example.gonggang.domain.appointment.dto.response.AllAppointmentRoomResponse;
+import com.example.gonggang.domain.appointment.dto.response.AllAppointmentBoardResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentAllResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentCreateResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentRemainingResponse;
@@ -75,8 +75,8 @@ public class AppointmentController {
     }
 
     @GetMapping("/all-board")
-    public ResponseEntity<AllAppointmentRoomResponse> readAllRoom() {
-        AllAppointmentRoomResponse response = appointmentManageService.readAll();
+    public ResponseEntity<AllAppointmentBoardResponse> readAllRoom() {
+        AllAppointmentBoardResponse response = appointmentManageService.readAll();
         return ResponseEntity.ok(response);
     }
 
