@@ -16,4 +16,8 @@ public class FastApiService {
 	public Map<String, Object> sendImageUrlAndMemberIdToFastApi(String imageUrl, String memberId) {
 		return fastApiClient.sendImageUrlAndMemberId(imageUrl, memberId);
 	}
+
+	public Map<String, Object> sendEntranceCodeAndUserIdToFastApi(String entranceCode, int userId) {
+		return fastApiClient.sendEntranceCodeAndUserId(entranceCode, userId);
+	}
 }

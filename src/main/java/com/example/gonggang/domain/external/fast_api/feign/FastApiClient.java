@@ -14,4 +14,10 @@ public interface FastApiClient {
 		@RequestParam("file_url") String fileUrl,
 		@RequestParam("username") String username
 	);
+
+	@PostMapping("/send-code")
+	Map<String, Object> sendEntranceCodeAndUserId(
+		@RequestParam("entranceCode") String entranceCode,
+		@RequestParam("userId") int userId
+	);
 }
