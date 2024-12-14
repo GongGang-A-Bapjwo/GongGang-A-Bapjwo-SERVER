@@ -59,7 +59,7 @@ public class AdminController implements AdminApi {
 	}
 
 	@Operation(summary = "[ADMIN] 회원 탈퇴 API", description = "회원 탈퇴를 위한 API입니다.")
-	@DeleteMapping("/{email}")
+	@DeleteMapping("/user/{email}")
 	public ResponseEntity<String> delete(@PathVariable String email) {
 		userManageService.delete(email);
 		return ResponseEntity.ok(SuccessCode.DELETE_SUCCESS.getMessage());
