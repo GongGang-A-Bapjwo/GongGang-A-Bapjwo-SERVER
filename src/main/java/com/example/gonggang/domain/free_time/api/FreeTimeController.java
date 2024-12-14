@@ -1,5 +1,6 @@
 package com.example.gonggang.domain.free_time.api;
 
+import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -56,18 +57,21 @@ public class FreeTimeController implements FreeTimeApi {
 			.body(freeTimes);
 	}
 
+	@Operation(summary = "수동 시간표 설정 API", description = "수동으로 시간표를 설정하는 API입니다.")
 	@PostMapping("/setting-freetime")
 	public ResponseEntity<String> create(@CurrentMember Long userId, @RequestBody FreeTimeRequest freeTimeRequest) {
 		freeTimeSaveService.create(userId, freeTimeRequest);
 		return ResponseEntity.ok(SuccessCode.CREATE_SUCCESS.getMessage());
 	}
 
+	@Operation(summary = "수동 시간표 변경 API", description = "수동으로 시간표를 변경하는 API입니다.")
 	@PutMapping("/updating-freetime")
 	public ResponseEntity<String> update(@CurrentMember Long userId, @RequestBody FreeTimeRequest freeTimeRequest) {
 		freeTimeSaveService.update(userId, freeTimeRequest);
 		return ResponseEntity.ok(SuccessCode.UPDATE_SUCCESS.getMessage());
 	}
 
+	@Operation(summary = "공강 확인 API", description = "자신의 모든 공강시간을 조회하는 API입니다.")
 	@GetMapping("/info")
 	public ResponseEntity<List<FreeTimeAllResponse>> read(@CurrentMember Long userId) {
 		List<FreeTimeAllResponse> response = freeTimeManageService.readAll(userId);
