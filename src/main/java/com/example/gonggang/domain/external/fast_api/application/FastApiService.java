@@ -23,4 +23,9 @@ public class FastApiService {
 		Map<String, Object> response = fastApiClient.sendEntranceCodeAndUserId(entranceCode, userId.intValue());
 		return FastApiResponse.from(response);
 	}
+
+	public FastApiResponse sendEntranceCodeToFastApi(String entranceCode) {
+		Map<String, Object> response = fastApiClient.sendEntranceCode(entranceCode);
+		return FastApiResponse.from(response);
+	}
 }
