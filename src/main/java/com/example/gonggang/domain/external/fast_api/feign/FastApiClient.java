@@ -22,7 +22,7 @@ public interface FastApiClient {
 		@RequestParam("user_id") int userId
 	);
 
-	@GetMapping("/meet")
+	@GetMapping("/meeting")
 	Map<String, Object> sendEntranceCode(
 		@RequestParam("entrance_code") String entranceCode
 	);
