@@ -1,5 +1,6 @@
 package com.example.gonggang.domain.appointment.api;
 
+import com.example.gonggang.domain.appointment.dto.request.AppointmentSelectRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
 import java.util.Map;
@@ -120,5 +121,14 @@ public class AppointmentController {
 		FastApiResponse fastApiResponse = fastApiService.sendEntranceCodeToFastApi(request.entranceCode());
 		Map<String, Object> result = appointmentManageService.processFastApiResponse(fastApiResponse.response(), userId, request.roomId());
 		return ResponseEntity.ok(result);
+	}
+
+	@Operation(summary = "시간 선택 API", description = "가능 한 시간 중 원하는 약속시간을 선택하는 API입니다.")
+	@PostMapping("/decision")
+	public ResponseEntity<String> selectAppointmentTime(
+			@RequestBody AppointmentSelectRequest request,
+			@CurrentMember Long userId) {
+		appointmentManageService.update(request,userId);
+		return ResponseEntity.ok(SuccessCode.UPDATE_SUCCESS.getMessage());
 	}
 }

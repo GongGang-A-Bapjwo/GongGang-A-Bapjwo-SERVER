@@ -5,6 +5,7 @@ import com.example.gonggang.domain.appointment.domain.AppointmentParticipant;
 import com.example.gonggang.domain.appointment.domain.AppointmentRoom;
 import com.example.gonggang.domain.appointment.dto.request.AppointmentCreateRequest;
 import com.example.gonggang.domain.appointment.dto.request.AppointmentEnterRequest;
+import com.example.gonggang.domain.appointment.dto.request.AppointmentSelectRequest;
 import com.example.gonggang.domain.appointment.dto.response.AllAppointmentBoardResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentAllResponse;
 import com.example.gonggang.domain.appointment.dto.response.AppointmentCreateResponse;
@@ -237,5 +238,14 @@ public class AppointmentManageService {
         }
 
         return timeSlots;
+    }
+
+    @Transactional
+    public void update(AppointmentSelectRequest request, Long userId) {
+        Users user = userGetService.findByMemberId(userId);
+        AppointmentParticipant appointmentParticipant = participantGetService.findByParticipantAndRoom(user,request.roomId());
+        //TODO: 권한 조회
+        AppointmentRoom room = appointmentParticipant.getAppointmentRoom();
+        room.decideTime(request);
     }
 }
