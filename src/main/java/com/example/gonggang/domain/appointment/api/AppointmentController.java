@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -124,7 +125,7 @@ public class AppointmentController {
 	}
 
 	@Operation(summary = "시간 선택 API", description = "가능 한 시간 중 원하는 약속시간을 선택하는 API입니다.")
-	@PostMapping("/decision")
+	@PatchMapping("/decision")
 	public ResponseEntity<String> selectAppointmentTime(
 			@RequestBody AppointmentSelectRequest request,
 			@CurrentMember Long userId) {
