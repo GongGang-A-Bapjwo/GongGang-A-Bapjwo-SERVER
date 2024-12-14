@@ -101,7 +101,7 @@ public class AppointmentController {
 		return ResponseEntity.ok(SuccessCode.UPDATE_SUCCESS.getMessage());
 	}
 
-	@PostMapping("/meet")
+	@PostMapping("/meeting")
 	public ResponseEntity<Map<String, Object>> createAppointment(
 		@CurrentMember Long userId,
 		@RequestBody AppointmentExtractTimeRequest request
