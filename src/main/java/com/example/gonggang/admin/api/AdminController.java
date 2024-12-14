@@ -5,6 +5,7 @@ import com.example.gonggang.domain.appointment.application.AppointmentBoardGetSe
 import com.example.gonggang.domain.appointment.dto.response.AllAppointmentBoardResponse;
 import com.example.gonggang.global.config.success.SuccessCode;
 
+import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -50,24 +51,28 @@ public class AdminController implements AdminApi {
 		return ResponseEntity.ok().body("ok");
 	}
 
+	@Operation(summary = "[ADMIN] 회원 조회 API", description = "모든 회원을 조회하는 API입니다.")
 	@GetMapping("/members")
 	public ResponseEntity<List<ReadAllMemberResponse>> findAll() {
 		List<ReadAllMemberResponse> response = userManageService.readAll();
 		return ResponseEntity.ok(response);
 	}
 
-	@DeleteMapping("/{email}")
+	@Operation(summary = "[ADMIN] 회원 탈퇴 API", description = "회원 탈퇴를 위한 API입니다.")
+	@DeleteMapping("/user/{email}")
 	public ResponseEntity<String> delete(@PathVariable String email) {
 		userManageService.delete(email);
 		return ResponseEntity.ok(SuccessCode.DELETE_SUCCESS.getMessage());
 	}
 
+	@Operation(summary = "[ADMIN] 채팅방 조회 API", description = "모든 채팅방을 조회하는 API입니다.")
 	@GetMapping("/appointmentBoards")
 	public ResponseEntity<AllAppointmentBoardResponse> readAll() {
 		AllAppointmentBoardResponse response = appointmentManagerService.readAll();
 		return ResponseEntity.ok(response);
 	}
 
+	@Operation(summary = "[ADMIN] 채팅방 삭제 API", description = "boardId를 입력받아 채팅방을 삭제하는 API입니다.")
 	@DeleteMapping("/{boardId}")
 	public ResponseEntity<String> delete(@PathVariable Long boardId) {
 		appointmentManagerService.delete(boardId);

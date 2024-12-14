@@ -1,6 +1,7 @@
 package com.example.gonggang.domain.appointment.domain;
 
 import com.example.gonggang.domain.appointment.dto.request.AppointmentCreateRequest;
+import com.example.gonggang.domain.appointment.dto.request.AppointmentSelectRequest;
 import com.example.gonggang.domain.appointment.exception.OverThanCurrentUserException;
 import java.time.LocalTime;
 
@@ -145,5 +146,11 @@ public class AppointmentRoom extends BaseTimeEntity {
 		if (current > target) {
 			throw new OverThanCurrentUserException();
 		}
+	}
+
+	public void decideTime(AppointmentSelectRequest request) {
+		this.decidedWeekday = Weekday.fromEnglish(request.weekday());
+		this.decidedStartTime = LocalTime.parse(request.startTime());
+		this.decidedEndTime = LocalTime.parse(request.endTime());
 	}
 }
