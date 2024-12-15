@@ -52,7 +52,7 @@ public class AdminController implements AdminApi {
 	}
 
 	@Operation(summary = "[ADMIN] 회원 조회 API", description = "모든 회원을 조회하는 API입니다.")
-	@GetMapping("/members")
+	@GetMapping("/member/all")
 	public ResponseEntity<List<ReadAllMemberResponse>> findAll() {
 		List<ReadAllMemberResponse> response = userManageService.readAll();
 		return ResponseEntity.ok(response);
