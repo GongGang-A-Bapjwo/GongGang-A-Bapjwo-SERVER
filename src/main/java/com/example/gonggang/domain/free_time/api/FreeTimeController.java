@@ -58,14 +58,14 @@ public class FreeTimeController implements FreeTimeApi {
 	}
 
 	@Operation(summary = "수동 시간표 설정 API", description = "수동으로 시간표를 설정하는 API입니다.")
-	@PostMapping("/setting-freetime")
+	@PostMapping("/freetime")
 	public ResponseEntity<String> create(@CurrentMember Long userId, @RequestBody FreeTimeRequest freeTimeRequest) {
 		freeTimeSaveService.create(userId, freeTimeRequest);
 		return ResponseEntity.ok(SuccessCode.CREATE_SUCCESS.getMessage());
 	}
 
 	@Operation(summary = "수동 시간표 변경 API", description = "수동으로 시간표를 변경하는 API입니다.")
-	@PutMapping("/updating-freetime")
+	@PutMapping("/freetime")
 	public ResponseEntity<String> update(@CurrentMember Long userId, @RequestBody FreeTimeRequest freeTimeRequest) {
 		freeTimeSaveService.update(userId, freeTimeRequest);
 		return ResponseEntity.ok(SuccessCode.UPDATE_SUCCESS.getMessage());

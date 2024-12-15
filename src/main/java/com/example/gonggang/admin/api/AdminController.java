@@ -66,7 +66,7 @@ public class AdminController implements AdminApi {
 	}
 
 	@Operation(summary = "[ADMIN] 채팅방 조회 API", description = "모든 채팅방을 조회하는 API입니다.")
-	@GetMapping("/appointmentBoards")
+	@GetMapping("/appointment-board/all")
 	public ResponseEntity<AllAppointmentBoardResponse> readAll() {
 		AllAppointmentBoardResponse response = appointmentManagerService.readAll();
 		return ResponseEntity.ok(response);
