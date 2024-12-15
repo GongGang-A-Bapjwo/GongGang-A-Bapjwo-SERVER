@@ -15,4 +15,6 @@ public interface FreeTimeRepository extends JpaRepository<FreeTime, Long> {
     List<FreeTime> findAllByUserAndWeekday(@Param("user") Users user, @Param("weekday") Weekday weekday);
 
     List<FreeTime> findAllByUser(Users user);
+
+    void deleteByUserId(Long userId);
 }
