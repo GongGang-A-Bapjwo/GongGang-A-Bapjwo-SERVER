@@ -8,8 +8,8 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AppointmentBoardRepository extends JpaRepository<AppointmentBoard,Long> {
-    List<AppointmentBoard> findAllByStartTimeAndEndTimeAndWeekday(LocalTime startTime, LocalTime endTime,
-                                                                  Weekday weekday);
+    List<AppointmentBoard> findAllByWeekdayAndStartTimeGreaterThanEqualAndEndTimeLessThanEqual(
+            Weekday weekday, LocalTime endTime, LocalTime startTime);
 
     List<AppointmentBoard> findAll();
 
