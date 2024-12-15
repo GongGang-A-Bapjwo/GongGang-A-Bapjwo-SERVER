@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.gonggang.domain.free_time.repository.FreeTimeRepository;
 import com.example.gonggang.domain.member.dto.AccessTokenGetSuccess;
 import com.example.gonggang.domain.member.dto.LoginSuccessResponse;
 import com.example.gonggang.domain.users.domain.Role;
@@ -34,6 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class AuthenticationService {
 	private static final String BEARER_PREFIX = "Bearer ";
+	private final FreeTimeRepository freeTimeRepository;
 	private final JwtTokenProvider jwtTokenProvider;
 	private final TokenService tokenService;
 
@@ -63,7 +65,8 @@ public class AuthenticationService {
 		log.info("Login success for authorities: {}, accessToken: {}, refreshToken: {}", authorities, accessToken,
 			refreshToken);
 
-		return LoginSuccessResponse.of(accessToken, refreshToken, nickname, role.getRoleName());
+		return LoginSuccessResponse.of(accessToken, refreshToken, nickname, role.getRoleName(),
+			!freeTimeRepository.findAllByUser(user).isEmpty());
 	}
 
 	/**

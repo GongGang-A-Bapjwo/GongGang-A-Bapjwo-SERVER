@@ -44,7 +44,7 @@ public class AdminAuthService {
 		String accessToken = jwtTokenProvider.issueAccessToken(authentication);
 		String refreshToken = jwtTokenProvider.issueRefreshToken(authentication);
 
-		return LoginSuccessResponse.of(accessToken, refreshToken, username, Role.ADMIN.getRoleName());
+		return LoginSuccessResponse.of(accessToken, refreshToken, username, Role.ADMIN.getRoleName(), false);
 	}
 
 	private void validatePassword(String password, Admin admin) {
