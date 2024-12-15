@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.gonggang.domain.common.Weekday;
 import com.example.gonggang.domain.free_time.domain.FreeTime;
@@ -32,12 +33,15 @@ public class FreeTimeSaveService {
 	private final UserGetService userGetService;
 	private final FreeTimeGetService freeTimeGetService;
 
+	@Transactional
 	public List<FreeTimeResponse> saveFreeTimes(FastApiResponse fastApiResponse) {
 		Map<String, Object> responseMap = fastApiResponse.response();
 		String memberIdStr = (String)responseMap.get("user_name");
 		long memberId = Long.parseLong(memberIdStr);
 
 		Users user = userGetService.findByMemberId(memberId);
+
+		freeTimeRepository.deleteByUserId(user.getId());
 
 		Map<String, List<String>> schedule = extractSchedule(fastApiResponse);
 		List<FreeTime> freeTimes = new ArrayList<>();
