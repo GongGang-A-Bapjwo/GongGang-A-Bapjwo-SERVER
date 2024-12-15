@@ -49,7 +49,7 @@ aws-property:
 
 jwt:
   secret: ENC(VIQTMU7Fj420n7rn5zF52KCnt9D57+M8AtUodATEmcYEWLCT5GqkRg==)
-  access-token-expire-time: ENC(qsTJOF17xHFt3kWKPTuRUQ==)
+  access-token-expire-time: ENC(18YyHLZPfrsAFftbU85GvKAsYA1ZfxjJ)
   refresh-token-expire-time: ENC(tSmeJoRjo5aFk8U1/2mAxJuaZwGAqOvW)
 
 app:
