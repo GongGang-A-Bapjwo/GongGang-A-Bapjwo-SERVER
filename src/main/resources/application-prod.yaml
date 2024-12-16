@@ -83,3 +83,14 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+
+sentry:
+  dsn: ENC(QNMnWxxKpRvdt8q3T/eY0aWMKuL6jfUfFOaThvo9cAL19SjjvcLCJeHxsVmXj0o8PpBRHEowaOfbVEDyXjEc08pdzlvZH3brSAqkZeK94zSXl7TlBvHqtJjgfTRacv/5NKltEh79/NM=)
+  environment: ENC(4hyMvAYdy0XB/v2IOgdySg==)
+  servername: ENC(T/8gB0RZGKr8XTyK1/iye/HVI3ocbdyq)
+
+logging:
+  config: classpath:logback-spring.xml
+  sentry:
+    repository-uri: ENC(U4Lb1kWLJP/pyOe3/zilMMvE71/Szn8yMzJgmHY0QutQQvIdO6X0JCy93neprS2gYYQsqtH7nXK/o9fylLxbg3I4mNsvEMwHpuN/hfOinfFux2ETRxEBwVIxujFqViz43lurq4qzrEM=)
+    environment: prod
