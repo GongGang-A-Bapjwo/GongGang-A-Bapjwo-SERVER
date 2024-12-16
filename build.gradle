@@ -73,6 +73,9 @@ dependencies {
 
     // AOP (Aspect-Oriented Programming) for cross-cutting concerns
     implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+    // Sentry
+    implementation 'io.sentry:sentry-logback:7.17.0'
 }
 
 tasks.named('test') {
