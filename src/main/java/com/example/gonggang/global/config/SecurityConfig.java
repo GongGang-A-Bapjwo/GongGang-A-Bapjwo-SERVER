@@ -38,6 +38,7 @@ public class SecurityConfig {
 			"/api/admin/login",
 			"/api/admin/health-check",
 			actuatorEndPoint + "/**",
+			"/sentry",
 			"/error",
 			"/"
 		};
