@@ -10,7 +10,7 @@ public record AppointmentRemainingResponse(
     public static AppointmentRemainingResponse toResponse(AppointmentRoom room) {
         return new AppointmentRemainingResponse(
                 room.getId(),
-                room.getMaxParticipants(),
+                room.getCurrentParticipants(),
                 room.getMaxParticipants() - room.getCurrentParticipants()
         );
     }
