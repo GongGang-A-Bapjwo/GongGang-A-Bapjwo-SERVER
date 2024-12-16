@@ -18,6 +18,7 @@ public enum ErrorCode {
 	ALREADY_ENTERED(400,"ALREADY_ENTERED","이미 참여하고 있는 공강팟입니다"),
 	INVALID_WEEKDAY_PROVIDED(400, "INVALID_WEEKDAY_PROVIDED", "WeekDay 열거형에 정의되지 않은 값입니다."),
 	INVALID_OUTPUT_LIST(400, "INVALID_OUTPUT_LIST", "출력값이 리스트 형식이 아닙니다."),
+	IO_EXCEPTION(400, "IO_EXCEPTION", "입출력 예외가 발생했습니다."),
 	EMPTY_OUTPUT_LIST(400, "EMPTY_OUTPUT_LIST", "출력값이 비어있는 리스트입니다."),
 	INVALID_OUTPUT_FIRST_ELEMENT(400, "INVALID_OUTPUT_FIRST_ELEMENT", "출력값의 첫 번째 요소가 Map 형식이 아닙니다."),
 	OVER_VALUE(400, "OVER_VALUE", "현재 참여하고 있는 인원 수 보다 적게 설정할 수 없습니다"),
