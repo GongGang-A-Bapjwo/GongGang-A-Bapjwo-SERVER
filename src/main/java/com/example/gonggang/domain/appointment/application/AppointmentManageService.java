@@ -177,10 +177,14 @@ public class AppointmentManageService {
     }
 
     @Transactional(readOnly = true)
-    public Map<String, Object> processFastApiResponse(Map<String, Object> response, Long userId, Long roomId) {
+    public Map<String, Object> processFastApiResponse(Map<String, Object> response, Long userId, String roomId) {
         Users user = userGetService.findByMemberId(userId);
+
+        // front 요청에 의한 String -> Long 형변환
+        Long parseLong = Long.parseLong(roomId);
+
         AppointmentParticipant appointmentParticipant = participantGetService.findByParticipantAndRoom(user,
-            roomId);
+            parseLong);
         if (!appointmentParticipant.isOwner()) {
             throw new AccessDeniedException();
         }
