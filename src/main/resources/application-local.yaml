@@ -92,7 +92,7 @@ sentry:
 logging:
   config: classpath:logback-spring.xml
   sentry:
-    repository-uri: ENC(Fmbmqx7yKowilnGBl3Lxva4511uZMT5wv5xPMo7lxVu+X61BhpSDFMp8R0+Gl3zkA2U1VJ9HsCczf8Zyqv2h2GCjmssPrPNJVx4DsTlvHYDIF2lgobZyspksLsqRy+7t+/uP7b0koMU=)
+    repository-uri: ${SENTRY_REPOSITORY_URI}
     environment: local
     discord-webhook-url: ${DISCORD_WEBHOOK_URL}
     discord-avatar-url: ${DISCORD_AVATAR_URL}
