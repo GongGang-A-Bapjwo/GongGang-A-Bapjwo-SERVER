@@ -13,12 +13,32 @@
 
     <springProperty name="SENTRY_REPOSITORY_URI" source="logging.sentry.repository-uri"/>
     <springProperty name="ENVIRONMENT" source="logging.sentry.environment"/>
+    <springProperty name="DISCORD_WEBHOOK_URL" source="logging.sentry.discord-webhook-url"/>
+    <springProperty name="DISCORD_AVATAR_URL" source="logging.sentry.discord-avatar-url"/>
+    <appender name="DISCORD" class="com.github.napstr.logback.DiscordAppender">
+        <webhookUri>${DISCORD_WEBHOOK_URL}</webhookUri>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>*🚨[${ENVIRONMENT}] %d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] %-5level %class - %msg &lt;${SENTRY_REPOSITORY_URI}|Go-To-Sentry&gt;*
+                %n
+            </pattern>
+        </layout>
+        <username>공강이</username>
+        <avatarUrl>https://d3a0emrk4594ab.cloudfront.net/test/KakaoTalk_Photo_2024-12-12-23-39-53.png</avatarUrl>
+        <tts>false</tts>
+    </appender>
+    <appender name="ASYNC_DISCORD" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="DISCORD" />
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+    </appender>
 
     <springProfile name="local">
         <include resource="console-appender.xml"/>
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="Sentry"/>
+            <appender-ref ref="ASYNC_DISCORD"/>
         </root>
     </springProfile>
 
@@ -27,6 +47,7 @@
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="Sentry"/>
+            <appender-ref ref="ASYNC_DISCORD"/>
         </root>
     </springProfile>
 
