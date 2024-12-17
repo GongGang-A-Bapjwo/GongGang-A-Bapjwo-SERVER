@@ -94,3 +94,5 @@ logging:
   sentry:
     repository-uri: ENC(U4Lb1kWLJP/pyOe3/zilMMvE71/Szn8yMzJgmHY0QutQQvIdO6X0JCy93neprS2gYYQsqtH7nXK/o9fylLxbg3I4mNsvEMwHpuN/hfOinfFux2ETRxEBwVIxujFqViz43lurq4qzrEM=)
     environment: prod
+    discord-webhook-url: ENC(v9lfx3JuC5YobQp59xk1AU380YiuifLtLb9sKO6FiTLVIOXhpiPSUvkXEICNjphKNqsPPnoD35V1rDVY4KHwo1Pu2CRlKpa5EgbSlhK9kGYcpJKBOaBN6p3hXidRlYjDEtI7FguMF2STdzEvOdM8ZEKflCsa4DOUKUtS7vkS2XYN7/4dHQcZ5A==)
+    discord-avatar-url: ENC(j0rO9pKexectjE0QrVWAnRUDhxez2O4mVH9PEvevjjdVGbdthBAvHWSR25EuSNTcf2s5JZ1BnTeYOgtQAcxrnnyZQm+6bn8KN9pXEN+GiQJBSthSvbq8ibeVIzVATR8X)
