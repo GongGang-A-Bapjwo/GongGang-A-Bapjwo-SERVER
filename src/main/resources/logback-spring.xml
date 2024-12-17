@@ -23,7 +23,7 @@
             </pattern>
         </layout>
         <username>공강이</username>
-        <avatarUrl>https://d3a0emrk4594ab.cloudfront.net/test/KakaoTalk_Photo_2024-12-12-23-39-53.png</avatarUrl>
+        <avatarUrl>${DISCORD_AVATAR_URL}</avatarUrl>
         <tts>false</tts>
     </appender>
     <appender name="ASYNC_DISCORD" class="ch.qos.logback.classic.AsyncAppender">
