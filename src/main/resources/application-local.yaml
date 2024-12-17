@@ -83,3 +83,16 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+
+sentry:
+  dsn: ENC(UxXVXQ47JWIhAIBxWoIqQyOz5KT+XZhSLu/A+1u5GIcHEFRKjBTCdNMc8cYfw1vhkNx0hp+P033/w44AZFuKJwJDgVGc+D9nNtInc+oWLKjp1pS5exFfUCLKD+vzd0p7EP1q+U5lVLM=)
+  environment: ENC(bgFhWSzCZxjyTQBHRPA8pw==)
+  servername: ENC(bSqg+o6dM1hFIDTuqX8fx4UT3yVGpXhg)
+
+logging:
+  config: classpath:logback-spring.xml
+  sentry:
+    repository-uri: ENC(Fmbmqx7yKowilnGBl3Lxva4511uZMT5wv5xPMo7lxVu+X61BhpSDFMp8R0+Gl3zkA2U1VJ9HsCczf8Zyqv2h2GCjmssPrPNJVx4DsTlvHYDIF2lgobZyspksLsqRy+7t+/uP7b0koMU=)
+    environment: local
+    discord-webhook-url: ${DISCORD_WEBHOOK_URL}
+    discord-avatar-url: ${DISCORD_AVATAR_URL}
