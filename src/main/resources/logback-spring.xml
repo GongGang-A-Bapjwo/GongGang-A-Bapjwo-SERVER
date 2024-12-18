@@ -11,10 +11,10 @@
         <minimumBreadcrumbLevel>DEBUG</minimumBreadcrumbLevel>
     </appender>
 
-<!--    <springProperty name="SENTRY_REPOSITORY_URI" source="logging.sentry.repository-uri"/>-->
-<!--    <springProperty name="ENVIRONMENT" source="logging.sentry.environment"/>-->
-<!--    <springProperty name="DISCORD_WEBHOOK_URL" source="logging.sentry.discord-webhook-url"/>-->
-<!--    <springProperty name="DISCORD_AVATAR_URL" source="logging.sentry.discord-avatar-url"/>-->
+    <springProperty name="SENTRY_REPOSITORY_URI" source="logging.sentry.repository-uri"/>
+    <springProperty name="ENVIRONMENT" source="logging.sentry.environment"/>
+    <springProperty name="DISCORD_WEBHOOK_URL" source="logging.sentry.discord-webhook-url"/>
+    <springProperty name="DISCORD_AVATAR_URL" source="logging.sentry.discord-avatar-url"/>
     <appender name="DISCORD" class="com.github.napstr.logback.DiscordAppender">
         <webhookUri>${DISCORD_WEBHOOK_URL}</webhookUri>
         <layout class="ch.qos.logback.classic.PatternLayout">
@@ -38,7 +38,7 @@
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="Sentry"/>
-            <appender-ref ref="ASYNC_DISCORD"/>
+<!--            <appender-ref ref="ASYNC_DISCORD"/>-->
         </root>
     </springProfile>
 
@@ -47,7 +47,7 @@
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="Sentry"/>
-            <appender-ref ref="ASYNC_DISCORD"/>
+<!--            <appender-ref ref="ASYNC_DISCORD"/>-->
         </root>
     </springProfile>
 
